@@ -3,7 +3,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class ChessJPanel extends JPanel
@@ -32,9 +35,17 @@ public class ChessJPanel extends JPanel
 
     public class EastPanel extends JPanel
     {
+        private JLabel turns;
+
         EastPanel ()
         {
             setBorder(BorderFactory.createLineBorder(Color.black));
+            setLayout(new GridLayout(6, 1));
+
+            turns = new JLabel("Player 1 turn");
+            turns.setHorizontalAlignment(JLabel.CENTER);
+
+            add(turns);
         }
 
         // Dynamically resize
@@ -51,13 +62,21 @@ public class ChessJPanel extends JPanel
         BottomPanel ()
         {
             setBorder(BorderFactory.createLineBorder(Color.black));
+            setLayout(new GridLayout(1, 5));
+
+            for (int count = 0; count < 4; ++count)
+                add(new JPanel());
+
+            add(new JButton("Reset"));
+
         }
 
         // Dynamically resize
         public void paintComponent(Graphics g)
         {
             super.paintComponent(g);
-            setPreferredSize(new Dimension(getPreferredSize().width, (int) (height * 0.08)));
+            setPreferredSize(new Dimension(getPreferredSize().width, (int) (height * 0.1)));
+
         }
     }
 
@@ -74,10 +93,13 @@ public class ChessJPanel extends JPanel
 
     public class TopPanel extends JPanel
     {
+        private JLabel title;
 
         TopPanel()
         {
             setBorder(BorderFactory.createLineBorder(Color.black));
+            title = new JLabel("Player 1 vs Player 2");
+            add(title);
         }
         
         // Dynamically resize
