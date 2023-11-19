@@ -2,6 +2,7 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import javax.swing.BorderFactory;
@@ -29,6 +30,8 @@ public class ChessJPanel extends JPanel
     {
         width = getWidth();
         height = getHeight();
+
+        // Makes sure to update panels when resized
         revalidate();
     }
 
@@ -36,14 +39,15 @@ public class ChessJPanel extends JPanel
     public class EastPanel extends JPanel
     {
         private JLabel turns;
+        private int fontSize;
 
         EastPanel ()
         {
-            setBorder(BorderFactory.createLineBorder(Color.black));
             setLayout(new GridLayout(6, 1));
 
             turns = new JLabel("Player 1 turn");
             turns.setHorizontalAlignment(JLabel.CENTER);
+            fontSize = turns.getFont().getSize();
 
             add(turns);
         }
@@ -52,6 +56,7 @@ public class ChessJPanel extends JPanel
         public void paintComponent(Graphics g)
         {
             super.paintComponent(g);
+            turns.setFont(new Font(turns.getFont().getName(), turns.getFont().getStyle(), (int) (fontSize * width * 0.002)));
             setPreferredSize(new Dimension((int) (width * 0.2), getPreferredSize().height));
         }
     }
@@ -61,7 +66,6 @@ public class ChessJPanel extends JPanel
     {
         BottomPanel ()
         {
-            setBorder(BorderFactory.createLineBorder(Color.black));
             setLayout(new GridLayout(1, 5));
 
             for (int count = 0; count < 4; ++count)
@@ -94,11 +98,12 @@ public class ChessJPanel extends JPanel
     public class TopPanel extends JPanel
     {
         private JLabel title;
+        private int fontSize;
 
         TopPanel()
         {
-            setBorder(BorderFactory.createLineBorder(Color.black));
             title = new JLabel("Player 1 vs Player 2");
+            fontSize = title.getFont().getSize();
             add(title);
         }
         
@@ -106,6 +111,7 @@ public class ChessJPanel extends JPanel
         public void paintComponent(Graphics g)
         {
             super.paintComponent(g);
+            title.setFont(new Font(title.getFont().getName(), title.getFont().getStyle(), (int) (fontSize * height * 0.003)));
             setPreferredSize(new Dimension(getPreferredSize().width, (int) (height * 0.07)));
         }
     }
