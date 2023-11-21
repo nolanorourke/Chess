@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 public class ChessJPanel extends JPanel
 {
+    // Used to dynamically resize
     private int width, height;
 
     ChessJPanel()
