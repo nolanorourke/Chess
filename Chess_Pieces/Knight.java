@@ -1,3 +1,5 @@
+package Chess_Pieces;
+
 public class Knight extends Pieces
 {
     public Knight()

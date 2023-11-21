@@ -1,4 +1,5 @@
 // Name: Nicolas Azzi and Nolan O'Rourke
+package Chess_Pieces;
 
 public class King extends Pieces
 {

@@ -1,13 +1,15 @@
-public class Queen extends Pieces
+package Chess_Pieces;
+
+public class Bishop extends Pieces
 {
-    public Queen()
+    public Bishop()
     {
         super();
-        setName("Queen");
+        setName("Bishop");
     }
-    public Queen(Spot start)
+    public Bishop(Spot start)
     {
-        super('Q', start);
+        super('B', start);
     }
     
 

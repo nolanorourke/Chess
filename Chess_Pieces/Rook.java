@@ -1,3 +1,5 @@
+package Chess_Pieces;
+
 public class Rook extends Pieces
 {
     public Rook()
