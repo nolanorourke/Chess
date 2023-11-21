@@ -14,7 +14,8 @@ import javax.swing.JPanel;
 public class ChessJPanel extends JPanel
 {
     private int width, height;
-
+    private GameBoard board = new GameBoard();
+    private Player player[]; //two Players
     ChessJPanel()
     {
         // Sets JPanel
@@ -62,11 +63,12 @@ public class ChessJPanel extends JPanel
     public class CenterPanel extends JPanel
     {
     
-        CenterPanel ()
+        CenterPanel()
         {
             setLayout(new BorderLayout());
             setBorder(BorderFactory.createLineBorder(Color.black));
             add(new TopPanel(), BorderLayout.NORTH);
+            
         }
     }
 
