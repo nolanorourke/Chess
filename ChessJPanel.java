@@ -80,7 +80,7 @@ public class ChessJPanel extends JPanel
     public class EastPanel extends JPanel
     {
         private JLabel turns;
-        private JPanel moves;
+        private MoveGrid moves;
         private int fontSize;       // Needed to resize font
 
         EastPanel ()
@@ -93,16 +93,8 @@ public class ChessJPanel extends JPanel
             fontSize = turns.getFont().getSize();
 
 
-            // Have to make a seperate class for the move JPanel but for now this layout gets the point acrossed
-
             // Sets the move grid
-            moves = new JPanel();
-            moves.setLayout(new GridLayout(8, 2));
-            for (int x = 0; x < 8; ++x)
-                for (int y = 0; y < 2; ++y)
-                    moves.add(new JLabel("test"));
-            moves.setBorder(BorderFactory.createLineBorder(Color.black));
-            moves.setPreferredSize(new Dimension(100, 100));
+            moves = new MoveGrid();
 
             // Whose turn
             gbc.fill = GridBagConstraints.VERTICAL;
@@ -124,12 +116,12 @@ public class ChessJPanel extends JPanel
 
         }
 
-        // Dynamically resizes text and eastPanel border
+        // Dynamically resizes east Panel and components
         public void paintComponent(Graphics g)
         {
             super.paintComponent(g);
+            moves.setWidth(width);
             setPreferredSize(new Dimension((int) (width * 0.2), getPreferredSize().height));
-            moves.setPreferredSize(new Dimension((int) (width * 0.15), getPreferredSize().height));
             turns.setFont(new Font(turns.getFont().getName(), turns.getFont().getStyle(), (int) (fontSize * width * 0.002)));
         }
     }
@@ -143,10 +135,14 @@ public class ChessJPanel extends JPanel
         {
             setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 5));
             
-
             // Buttons just for inital design
             newGame = new JButton("New Game");
             reset = new JButton("Reset");
+
+            // Takes off the border around text when you click button
+            newGame.setFocusPainted(false);
+            reset.setFocusPainted(false);
+
             newGame.setPreferredSize(new Dimension(95, 26));
             
             add(newGame);

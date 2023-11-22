@@ -55,23 +55,13 @@ public class Spot extends JPanel
         isTeam1Color = !isTeam1Color;
     }
 
-    public boolean isAvailable() {
-        return available;
-    }
+    public boolean isAvailable() { return available; }
 
-    public char getrow() {
-        return row;
-    }
+    public char getrow() { return row; }
 
-    public int getrowNumber() {
-        return rowNumber;
-    }
+    public int getrowNumber() { return rowNumber; }
 
-    public int getcolumn() {
-        return column;
-    }
+    public int getcolumn() { return column; }
 
-    public void setAvailable(boolean b) {
-        available = b;
-    }
+    public void setAvailable(boolean b) { available = b; }
 }

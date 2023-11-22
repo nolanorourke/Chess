@@ -19,6 +19,7 @@ public class Pawn extends Pieces
     {
 
     }
+
     public boolean checkPossibleMove(Spot s)
     {
         return true;
