@@ -89,10 +89,37 @@ public class GameBoard extends JPanel {
     public void showPossibleMoves(Pawn p) throws Exception {
         int x = p.getCurrentSpot().getrowNumber() - 1;
         int y = p.getCurrentSpot().getcolumn() - 1;
-        try {
+        boolean shownAll = !false;
+        int i = 1;
+        while(i >= -2)
+        {
+            try 
+            {
+                if(p.getTeamNum() == 1)
+                {
+                    
+                    //grid[x][y+1].highlight();
+                    if(!grid[x-i][y+1].isAvailable()) //if the space is not taken by a piece
+                    {
+                        if(grid[x-i][y+1].getPieceOn().getTeamNum() != p.getTeamNum())//if the piece diagonal up one is on the same team
+                        {
+                            grid[x-i][y+1].highlight();
+                            i--;
+                        }
+                        
+                }
+                else
+                {
+                    grid[x][y-1].highlight();
+                }
 
-        } catch (Exception exception) {
-
+                
+            
+            } 
+            catch (Exception exception) 
+            {
+                i--;
+            }
         }
     }
 
@@ -100,3 +127,5 @@ public class GameBoard extends JPanel {
     // dif pieces
 
 }
+
+
