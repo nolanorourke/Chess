@@ -5,11 +5,16 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+import Chess_Board.GameBoard;
+import Chess_Board.Spot;
 
 public class ChessJPanel extends JPanel
 {
@@ -31,11 +36,9 @@ public class ChessJPanel extends JPanel
     // Used to dynamically get width, height, and make sure Panel is refereshed
     public void paintComponent(Graphics g)
     {
+        super.paintComponent(g);
         width = getWidth();
         height = getHeight();
-
-        // Makes sure to update panels when resized
-        revalidate();
     }
 
     public class TopPanel extends JPanel
@@ -63,29 +66,62 @@ public class ChessJPanel extends JPanel
 
     public class CenterPanel extends JPanel
     {
-    
+
         CenterPanel()
         {
             setLayout(new BorderLayout());
-            setBorder(BorderFactory.createLineBorder(Color.black));
             add(new TopPanel(), BorderLayout.NORTH);
+            add(new GameBoard());
             
         }
+
     }
 
     public class EastPanel extends JPanel
     {
         private JLabel turns;
+        private JPanel moves;
         private int fontSize;       // Needed to resize font
 
         EastPanel ()
         {
-            setLayout(new GridLayout(6, 1));
+            setLayout(new GridBagLayout());
+            GridBagConstraints gbc = new GridBagConstraints();
+
             turns = new JLabel("Player 1 turn");
             turns.setHorizontalAlignment(JLabel.CENTER);
             fontSize = turns.getFont().getSize();
 
-            add(turns);
+
+            // Have to make a seperate class for the move JPanel but for now this layout gets the point acrossed
+
+            // Sets the move grid
+            moves = new JPanel();
+            moves.setLayout(new GridLayout(8, 2));
+            for (int x = 0; x < 8; ++x)
+                for (int y = 0; y < 2; ++y)
+                    moves.add(new JLabel("test"));
+            moves.setBorder(BorderFactory.createLineBorder(Color.black));
+            moves.setPreferredSize(new Dimension(100, 100));
+
+            // Whose turn
+            gbc.fill = GridBagConstraints.VERTICAL;
+            gbc.gridy = 0;
+            gbc.weighty = 2;
+            add(turns, gbc);
+
+            // Move Grid
+            gbc.gridy = 1;
+            gbc.gridheight = 6;
+            gbc.weighty = 8;
+            add(moves, gbc);
+
+            // Adds pading
+            gbc.gridy = 8;
+            gbc.gridheight = 1;
+            gbc.weighty = 1;
+            add(new JPanel(), gbc);
+
         }
 
         // Dynamically resizes text and eastPanel border
@@ -93,6 +129,7 @@ public class ChessJPanel extends JPanel
         {
             super.paintComponent(g);
             setPreferredSize(new Dimension((int) (width * 0.2), getPreferredSize().height));
+            moves.setPreferredSize(new Dimension((int) (width * 0.15), getPreferredSize().height));
             turns.setFont(new Font(turns.getFont().getName(), turns.getFont().getStyle(), (int) (fontSize * width * 0.002)));
         }
     }

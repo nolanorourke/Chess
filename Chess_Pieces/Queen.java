@@ -1,25 +1,29 @@
-package Chess
-
 package Chess_Pieces;
 
-public class Queen {
-    public Queen {
+import Chess_Board.Spot;
+
+public class Queen extends Pieces
+{
+    public Queen ()
+    {
         super();
         setName("Queen");
     }
 
-    public Queen(Spot star {
+    public Queen(Spot start)
+    {
         super('Q', start);
     }
 
  
-                                             //    public static void displayPossibleMoves()//calls check PossibleMove, glows if possible to move, glows other color if can capture piece
+    public void displayPossibleMoves()//calls check PossibleMove, glows if possible to move, glows other color if can capture piece
     {
 
     }
 
-    publ {
-    
+    public boolean checkPossibleMove(Spot s)
+    {
+        return s.isAvailable();
     }
     
 }

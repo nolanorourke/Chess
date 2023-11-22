@@ -4,6 +4,9 @@ package Chess_Pieces;
 import java.io.Serializable;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+
+import Chess_Board.Spot;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 

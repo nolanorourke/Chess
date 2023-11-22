@@ -1,6 +1,8 @@
 // Name: Nicolas Azzi and Nolan O'Rourke
 package Chess_Pieces;
 
+import Chess_Board.Spot;
+
 public class King extends Pieces
 {
     private boolean switched = false; //if it switched with a rook 
@@ -13,13 +15,13 @@ public class King extends Pieces
     {
         super('K', start);
     }
-    public static void displayPossibleMoves()
+    public void displayPossibleMoves()
     {
+        // No idea what this does
+        // if()
+        // {
 
-        if()
-        {
-
-        }
+        // }
     }
     public boolean checkPossibleMove(Spot s)
     {

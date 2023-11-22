@@ -1,5 +1,7 @@
 package Chess_Pieces;
 
+import Chess_Board.Spot;
+
 public class Bishop extends Pieces
 {
     public Bishop()
@@ -13,13 +15,13 @@ public class Bishop extends Pieces
     }
     
 
-    public static void displayPossibleMoves()//calls check PossibleMove, glows if possible to move, glows other color if can capture piece
+    public void displayPossibleMoves()//calls check PossibleMove, glows if possible to move, glows other color if can capture piece
     {
 
     }
     public boolean checkPossibleMove(Spot s)
     {
-        
+        return true;
     }
     
 }
