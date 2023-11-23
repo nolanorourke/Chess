@@ -1,14 +1,9 @@
 // Name: Nicolas Azzi and Nolan O'Rourke
 
 package Chess_Board;
-import Chess_Board.Spot;
 import java.awt.GridLayout;
-import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.Graphics;
-
 import javax.swing.JPanel;
-
 import Chess_Pieces.*;
 
 public class GameBoard extends JPanel {
@@ -106,7 +101,7 @@ public class GameBoard extends JPanel {
                             grid[x-i][y+1].highlight();
                             i--;
                         }
-                        
+                    }
                 }
                 else
                 {

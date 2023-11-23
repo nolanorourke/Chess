@@ -11,7 +11,7 @@ public class Bishop extends Pieces
     }
     public Bishop(Spot start)
     {
-        super('B', start);
+        super("Bishop", start);
     }
     
 

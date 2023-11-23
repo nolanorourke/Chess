@@ -13,7 +13,7 @@ public class King extends Pieces
     }
     public King(Spot start)
     {
-        super('K', start);
+        super("King", start);
     }
     public void displayPossibleMoves()
     {

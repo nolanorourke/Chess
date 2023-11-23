@@ -11,7 +11,7 @@ public class Rook extends Pieces
     }
     public Rook(Spot start)
     {
-        super('R', start);
+        super("Rook", start);
     }
     
 

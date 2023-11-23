@@ -2,8 +2,14 @@
 
 package Chess_Board;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import java.awt.Image;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Graphics;
+
 import Chess_Pieces.*;
 
 public class Spot extends JPanel
@@ -15,6 +21,8 @@ public class Spot extends JPanel
     private static boolean isTeam1Color = true;
     private boolean available;
     private Pieces pieceOn;
+    private ImageIcon pieceImage;
+    private JLabel image;
 
     // Not too sure why we would need this but imma leave it (Nick)
     public Spot() 
@@ -28,7 +36,9 @@ public class Spot extends JPanel
 
     public Spot(int letter, int col) // for initializing with the letter and number
     {
+        // Sets feel of board
         setBorder(BorderFactory.createLineBorder(Color.black));
+        setLayout(new BorderLayout());
 
         // ASCII casting
         row = (char) (letter + 65);
@@ -42,7 +52,32 @@ public class Spot extends JPanel
         if (column == 8)
             isTeam1Color = !isTeam1Color;
 
+        // For Pawns, adds image
+        if (row == 'B' || row == 'G')
+        {
+            pieceOn = new Pawn(this);
+            pieceImage = pieceOn.returnImage();
+            image = new JLabel(pieceImage);
+            add(image);
+        }
+
         available = true;
+    }
+
+    public void paintComponent (Graphics g)
+    {
+        super.paintComponent(g);
+
+        // Dynamically resize but image becomes blurry idk why... (Nick)
+        /*
+        if (row == 'B' || row == 'G')
+        {
+            pieceImage = pieceOn.returnImage();
+            pieceImage.setImage(pieceImage.getImage().getScaledInstance((int) (getWidth() * 0.8), (int) (getHeight() * 0.9), Image.SCALE_SMOOTH));
+            image.setIcon(pieceImage);
+
+        }*/
+        
     }
 
     // Everything below I'm not really focusing on (Nick)
@@ -64,7 +99,6 @@ public class Spot extends JPanel
 
     public int getcolumn() { return column; }
 
-<<<<<<< HEAD
     public void setAvailable(boolean b) {
         available = b;
     }
@@ -85,7 +119,4 @@ public class Spot extends JPanel
         pieceOn = p;
     }
 
-=======
-    public void setAvailable(boolean b) { available = b; }
->>>>>>> 8ee39e9a5a69c41e8ddb45aa4339259626bc44e6
 }
