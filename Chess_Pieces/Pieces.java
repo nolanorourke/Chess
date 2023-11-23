@@ -16,12 +16,14 @@ public abstract class Pieces implements Serializable {
     protected Spot currentSpot;
     protected String name;
     protected boolean alive;
+    protected int teamnum;
 
     public Pieces() {
         startingSpot = new Spot();
         currentSpot = new Spot();
         name = new String(" ");
         alive = true;
+        teamnum = 0;
     }
 
     // K is King, Q is Queen, B is Bishop, N is Knight, R is Rook, and P is Pawn
@@ -51,6 +53,10 @@ public abstract class Pieces implements Serializable {
         startingSpot = start;
         currentSpot = start;
         alive = true;
+        if(start.getrow() < 3)
+            teamnum = 1;
+        else
+            teamnum = 2;
     }
 
     public abstract void displayPossibleMoves(); // calls check PossibleMove, glows if possible to move, glows other
@@ -76,4 +82,8 @@ public abstract class Pieces implements Serializable {
 
     public void setAlive(boolean b) { alive = b; }
 
+    public int getTeamNum()
+    {
+        return teamnum;
+    }
 }

@@ -4,6 +4,7 @@ package Chess_Board;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import java.awt.Color;
+import Chess_Pieces.*;
 
 public class Spot extends JPanel
 {
@@ -12,7 +13,8 @@ public class Spot extends JPanel
     private int column;
     private Color spaceColor;
     private static boolean isTeam1Color = true;
-    private boolean available = true;
+    private boolean available;
+    private Pieces pieceOn;
 
     // Not too sure why we would need this but imma leave it (Nick)
     public Spot() 
@@ -22,7 +24,6 @@ public class Spot extends JPanel
         column = 0;
         chooseColor();
         available = true;
-
     }
 
     public Spot(int letter, int col) // for initializing with the letter and number
@@ -63,5 +64,28 @@ public class Spot extends JPanel
 
     public int getcolumn() { return column; }
 
+<<<<<<< HEAD
+    public void setAvailable(boolean b) {
+        available = b;
+    }
+
+    public void highlight()
+    {
+        JPanel highlight = new JPanel();
+        highlight.setBackground(Color.YELLOW);
+        add(highlight);
+    }
+    //doing this for the gameboard class so we can check which piece is on which space
+    public Pieces getPieceOn()
+    {
+        return pieceOn;
+    }
+    public void setPieceOn(Pieces p)
+    {
+        pieceOn = p;
+    }
+
+=======
     public void setAvailable(boolean b) { available = b; }
+>>>>>>> 8ee39e9a5a69c41e8ddb45aa4339259626bc44e6
 }
