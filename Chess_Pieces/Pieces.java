@@ -58,41 +58,22 @@ public abstract class Pieces implements Serializable {
 
     public abstract boolean checkPossibleMove(Spot s);
 
-    public void moveTo(Spot s) {
-        s.setAvailable(false);
+    public void moveTo(Spot s) { s.setAvailable(false); }
 
-    }
+    public Spot getStartingSpot() { return startingSpot; }
 
-    public Spot getStartingSpot() {
-        return startingSpot;
-    }
+    public Spot getCurrentSpot() { return currentSpot; }
 
-    public Spot getCurrentSpot() {
-        return currentSpot;
-    }
+    public String getName() { return name; }
 
-    public String getName() {
-        return name;
-    }
+    public boolean isAlive() { return alive; }
 
-    public boolean isAlive() {
-        return alive;
-    }
+    public void setStartingSpot(Spot s) { startingSpot = s; }
 
-    public void setStartingSpot(Spot s) {
-        startingSpot = s;
-    }
+    public void setCurrentSpot(Spot s) { currentSpot = s; }
 
-    public void setCurrentSpot(Spot s) {
-        currentSpot = s;
-    }
+    public void setName(String s) { name = s; }
 
-    public void setName(String s) {
-        name = s;
-    }
-
-    public void setAlive(boolean b) {
-        alive = b;
-    }
+    public void setAlive(boolean b) { alive = b; }
 
 }
