@@ -12,7 +12,7 @@ public class Queen extends Pieces
 
     public Queen(Spot start)
     {
-        super('Q', start);
+        super("Queen", start);
     }
 
  

@@ -11,7 +11,7 @@ public class Knight extends Pieces
     }
     public Knight(Spot start)
     {
-        super('N', start);
+        super("Knight", start);
     }
     
 
