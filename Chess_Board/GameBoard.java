@@ -89,7 +89,7 @@ public class GameBoard extends JPanel {
     public void showPossibleMoves(Pawn p) throws Exception {
         int x = p.getCurrentSpot().getrowNumber() - 1;
         int y = p.getCurrentSpot().getcolumn() - 1;
-        boolean shownAll = !false;
+        //boolean shownAll = false;
         int i = 1;
         while(i >= -2)
         {
@@ -106,11 +106,11 @@ public class GameBoard extends JPanel {
                             grid[x-i][y+1].highlight();
                             i--;
                         }
-                        
+                    }
                 }
                 else
                 {
-                    grid[x][y-1].highlight();
+                    grid[x-i][y-1].highlight();
                 }
 
                 
