@@ -26,7 +26,8 @@ public class Spot extends JPanel
     private ImageIcon pieceImage;
     private JLabel image;
     private static ImageIcon moveImage = null;          // Copies the image to current panel
-    private static JPanel prevPanel;                    // Used for deleting prev image (Chess piece)
+    private static Spot prevSpot;                       // Used for deleting prev image (Chess piece)
+    private Spot curSpot;
 
     // Not too sure why we would need this but imma leave it (Nick)
     public Spot() 
@@ -64,10 +65,13 @@ public class Spot extends JPanel
             image = new JLabel(pieceImage);
             add(image);
         }
+        else
+            pieceOn = null;
         MouseHandler handler = new MouseHandler();
         addMouseListener(handler);
 
         available = true;
+        curSpot = this;
     }
 
     // Used to resize chess images but not working
@@ -108,6 +112,12 @@ public class Spot extends JPanel
 
     public void setAvailable(boolean b) { available = b; }
 
+    public void removePiece ()
+    {
+        remove(image);
+        repaint();
+    }
+
     public void highlight()
     {
         JPanel highlight = new JPanel();
@@ -128,17 +138,28 @@ public class Spot extends JPanel
             
         public void mouseEntered(MouseEvent e) { /*System.out.println("Moved into spot");*/ }
 
+        // Moves the chess pieces around the board, haven't added the game rules to restrict pieces (Nick)
         public void mouseClicked (MouseEvent e)
         {
-            if (moveImage == null)
+            // Will have better naming convention by Saturday
+            if (moveImage == null && pieceImage != null)
             {
                 moveImage = pieceImage;
+                prevSpot = curSpot;
             }
-            else if (moveImage != null)
+            else if (moveImage != null && pieceOn == null && prevSpot != curSpot)
             {
                 pieceImage = moveImage;
-                add(new JLabel(pieceImage));
+                image = new JLabel(pieceImage);
+                add(image);
                 moveImage = null;
+                prevSpot.removePiece();
+                prevSpot = null;
+            }
+            else
+            {
+                moveImage = null;
+                prevSpot = null;
             }
         }
 
