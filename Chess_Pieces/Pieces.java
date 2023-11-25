@@ -1,6 +1,7 @@
 // Name: Nicolas Azzi and Nolan O'Rourke
 
 package Chess_Pieces;
+import java.awt.Image;
 import java.io.Serializable;
 import javax.swing.ImageIcon;
 import Chess_Board.Spot;
@@ -12,6 +13,7 @@ public abstract class Pieces implements Serializable {
     protected String name;
     protected boolean alive;
     protected int teamnum;
+    protected ImageIcon pieceImage;
 
     public Pieces()
     {
@@ -23,7 +25,8 @@ public abstract class Pieces implements Serializable {
     }
 
     // K is King, Q is Queen, B is Bishop, N is Knight, R is Rook, and P is Pawn
-    public Pieces(String piece, Spot start) {
+    public Pieces(String piece, Spot start) 
+    {    
         name = piece;
         startingSpot = start;
         currentSpot = start;
@@ -32,6 +35,10 @@ public abstract class Pieces implements Serializable {
             teamnum = 1;
         else
             teamnum = 2;
+        // Sets up the piece image
+        //set the call up so that we can either copy and paste or add it to parent constructor and it shoudl work for all of them
+        pieceImage = new ImageIcon(getClass().getResource(name + "Piece"+ teamnum +".png"));
+        pieceImage.setImage(pieceImage.getImage().getScaledInstance(startingSpot.getWidth(), startingSpot.getHeight(), Image.SCALE_SMOOTH));
     }
 
     public abstract void displayPossibleMoves(); // calls check PossibleMove, glows if possible to move, glows other
@@ -41,7 +48,7 @@ public abstract class Pieces implements Serializable {
 
     public ImageIcon returnImage()
     {
-        return new ImageIcon();
+        return pieceImage;
     }
 
     public void moveTo(Spot s) { s.setAvailable(false); }

@@ -16,11 +16,6 @@ public class Pawn extends Pieces
     public Pawn(Spot start)
     {
         super("Pawn", start);
-
-        // Sets up the pawn image
-        pawnImage = new ImageIcon( Pawn.class.getResource("pawnPiece.png") );
-        pawnImage.setImage(pawnImage.getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH));
-
     }
 
     public ImageIcon returnImage() { return pawnImage; }

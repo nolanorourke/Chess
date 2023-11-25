@@ -15,6 +15,8 @@ public class Player
     private Knight knight[];
     private Rook rook[];
     private Pawn pawn[];
+    private int piecesTaken;
+    private int piecesLost;
 
     public Player()
     {
@@ -22,6 +24,10 @@ public class Player
         playerName = new String("");
         playerColor = Color.MAGENTA;
         castled = false;
+
+
+        piecesLost = 0;
+        piecesTaken = 0;
 
     }
     public Player(int teamnum, String name)
@@ -42,5 +48,17 @@ public class Player
         playerColor = c;
         castled = false;
     }
+    public void takeTurn()
+    {
+
+    }
+
+    public int getPlayerNumber(){return playerNumber;}
+    public int getPiecesTaken() {return piecesTaken;}
+    public int getPiecesLost() {return piecesLost; }
+    public void setPiecesTaken(int t) {piecesTaken = t;}
+    public void setPiecesLost(int l) {piecesLost = l;}
+    public void IncrementTaken(){piecesTaken++;}
+    public void IncrementLost(){piecesLost++;}
     
 }

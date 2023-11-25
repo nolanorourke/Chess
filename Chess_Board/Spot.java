@@ -27,7 +27,7 @@ public class Spot extends JPanel
     private JLabel image;
     private static ImageIcon moveImage = null;          // Copies the image to current panel
     private static Spot prevSpot;                       // Used for deleting prev image (Chess piece)
-    private Spot curSpot;
+    private Spot curSpot;                               //feel like these last two should not be in the this class (Nolan)
 
     // Not too sure why we would need this but imma leave it (Nick)
     public Spot() 
@@ -112,6 +112,8 @@ public class Spot extends JPanel
 
     public void setAvailable(boolean b) { available = b; }
 
+    public Color getSpotColor(){ return spaceColor; }
+
     public void removePiece ()
     {
         remove(image);
@@ -120,9 +122,12 @@ public class Spot extends JPanel
 
     public void highlight()
     {
-        JPanel highlight = new JPanel();
-        highlight.setBackground(Color.YELLOW);
-        add(highlight);
+        setBackground(Color.YELLOW);
+        
+    }
+    public void removeHighlight()
+    {
+        setBackground(spaceColor);
     }
 
     //doing this for the gameboard class so we can check which piece is on which space
