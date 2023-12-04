@@ -88,6 +88,7 @@ public class ChessJPanel extends JPanel
         private int fontSize;       // Needed to resize font
         private DefaultTableModel moveHistory;
         private JTable moveHistoryTable;
+        
 
         EastPanel ()
         {
@@ -102,33 +103,36 @@ public class ChessJPanel extends JPanel
             moveHistory.addColumn("Team 1 Move");
             moveHistory.addColumn("Team 2 Move");
 
-            /* 
-            turns = new JLabel("Player 1 turn");
-            turns.setHorizontalAlignment(JLabel.CENTER);
-            fontSize = turns.getFont().getSize();
+            
+            //turns = new JLabel("Player 1 turn");
+            //turns.setHorizontalAlignment(JLabel.CENTER);
+            //fontSize = turns.getFont().getSize();
 
 
             // Sets the move grid
-            moves = new MoveGrid();
-
+            //MoveGrid moves = new MoveGrid();
+           
             // Whose turn
             gbc.fill = GridBagConstraints.VERTICAL;
             gbc.gridy = 0;
             gbc.weighty = 2;
-            add(turns, gbc);
+            // add(moveList, gbc);
 
-            // Move Grid
-            gbc.gridy = 1;
-            gbc.gridheight = 6;
-            gbc.weighty = 8;
-            add(moves, gbc);
+            //MoveGrid
+            //gbc.gridy = 1;
+            //gbc.gridheight = 6;
+            //gbc.weighty = 8;
+            add(scroller, gbc);
 
-            // Adds pading
-            gbc.gridy = 8;
-            gbc.gridheight = 1;
-            gbc.weighty = 1;
-            add(new JPanel(), gbc);
-            */
+            //Adds padding
+            // gbc.gridy = 8;
+            // gbc.gridheight = 1;
+            // gbc.weighty = 1;
+            // add(new JPanel(), gbc);
+            
+            Dimension maxWidth = new Dimension(200, Integer.MAX_VALUE);
+            setMaximumSize(maxWidth);
+            //setPreferredSize(maxWidth); //for some reason this fucks up the code
 
         }
 

@@ -1,9 +1,19 @@
 JFLAGS = -g
 JC = javac
-.SUFFIXES: .java .class
-.java.class: $(JC) $(JFLAGS) $.java
-CLASSES = Chess.java ChessJPanel.java 
+JR = jar -cvfm
+J = java
+.SUFFIXES:
+	.java .class
+CLASSES = Chess.java
 
-default: classes
-classes: $(CLASSES:.java=.class)
-clean: rm -rf *.class
+# default:
+# 	classes
+default:
+	$(JC) $(JFLAGS) Chess.java
+
+run:
+	$(JC) $(JFLAGS) Chess.java && $(J) Chess
+jar:
+	$(JR) ChessProject.jar *
+clean:
+	rm -rf *.class
