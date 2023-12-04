@@ -1,7 +1,9 @@
-all: Chess.class Execute
+JFLAGS = -g
+JC = javac
+.SUFFIXES: .java .class
+.java.class: $(JC) $(JFLAGS) $.java
+CLASSES = Chess.java ChessJPanel.java 
 
-Chess.class: Chess.java
-	javac Chess.java
-
-Execute: *.java
-	java Chess
+default: classes
+classes: $(CLASSES:.java=.class)
+clean: rm -rf *.class

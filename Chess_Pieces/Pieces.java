@@ -6,6 +6,7 @@ import java.io.Serializable;
 import javax.swing.ImageIcon;
 import Chess_Board.Spot;
 
+
 //for help with mouse controls, see the following examples: 11: 28_29, 31_32, 34_35 - drag, 
 public abstract class Pieces implements Serializable {
     protected Spot startingSpot;        // Not too sure how this would be helpful, better if we have future spot (Nick)
@@ -37,8 +38,9 @@ public abstract class Pieces implements Serializable {
             teamnum = 2;
         // Sets up the piece image
         //set the call up so that we can either copy and paste or add it to parent constructor and it shoudl work for all of them
-        pieceImage = new ImageIcon(getClass().getResource(name + "Piece"+ teamnum +".png"));
-        pieceImage.setImage(pieceImage.getImage().getScaledInstance(startingSpot.getWidth(), startingSpot.getHeight(), Image.SCALE_SMOOTH));
+        String temp = name + "Piece" + teamnum + ".png";
+        pieceImage = new ImageIcon(getClass().getResource(temp));
+        // pieceImage.setImage(pieceImage.getImage().getScaledInstance(startingSpot.getWidth(), startingSpot.getHeight(), Image.SCALE_SMOOTH));
     }
 
     public abstract void displayPossibleMoves(); // calls check PossibleMove, glows if possible to move, glows other

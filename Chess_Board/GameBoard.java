@@ -74,7 +74,7 @@ public class GameBoard extends JPanel {
         int x = r.getCurrentSpot().getrowNumber() - 1;
         int y = r.getCurrentSpot().getcolumn() - 1;
         int i = 7;
-        while( )
+        //while( )
 
     }
 
