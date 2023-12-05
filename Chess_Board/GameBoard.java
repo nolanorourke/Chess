@@ -2,8 +2,14 @@
 
 package Chess_Board;
 import java.awt.GridLayout;
+import java.awt.event.MouseListener;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+
 import Chess_Pieces.*;
 
 public class GameBoard extends JPanel {
@@ -18,6 +24,8 @@ public class GameBoard extends JPanel {
             for (int col = 0; col < 8; ++col)
                 add(new Spot(row, col));
         
+        MouseHandler handler = new MouseHandler();
+        addMouseListener(handler);
     }
 
     // Gotta figure out how to just make it a square, probably gonna ask Myers
@@ -25,6 +33,32 @@ public class GameBoard extends JPanel {
     {
         super.paintComponent(g);
     }
+
+
+    private class MouseHandler implements MouseListener
+    {
+        public void mouseExited (MouseEvent e) { /*System.out.println("Moved out of spot");*/ }
+            
+        public void mouseEntered(MouseEvent e) { /*System.out.println("Moved into spot");*/ }
+
+        // Moves the chess pieces around the board, haven't added the game rules to restrict pieces (Nick)
+        public void mouseClicked (MouseEvent e)
+        {
+            // Will have better naming convention by Saturday
+            
+        }
+
+        // Dragging events
+        public void mousePressed(MouseEvent e)
+        {
+            System.out.println("Moused pressed on " + ((Spot) getComponentAt(getMousePosition())).getrow());
+        }
+        public void mouseReleased(MouseEvent e)
+        {
+            System.out.println("Released on " + ((Spot) getComponentAt(getMousePosition())).getrow());
+        }
+    }
+
 
     public void showPossibleMoves(King k) throws Exception// NEED EXCEPTION HANDLING FOR OUT OF BOUNDS
     {

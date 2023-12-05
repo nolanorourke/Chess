@@ -61,14 +61,14 @@ public class Spot extends JPanel
         if (row == 'B' || row == 'G')
         {
             pieceOn = new Pawn(this);
-            pieceImage = pieceOn.returnImage();
+            pieceImage = pieceOn.returnIconImg();
             image = new JLabel(pieceImage);
             add(image);
         }
         else
             pieceOn = null;
-        MouseHandler handler = new MouseHandler();
-        addMouseListener(handler);
+        //MouseHandler handler = new MouseHandler();
+        //addMouseListener(handler);
 
         available = true;
         curSpot = this;
@@ -135,13 +135,14 @@ public class Spot extends JPanel
     public void setPieceOn(Pieces p) { pieceOn = p; }
 
 
-    // Mouse events below
+    // Starting to move mouse movements to Game Board (Nick)
+    /*// Mouse events below
     private class MouseHandler implements MouseListener
     {
         
-        public void mouseExited (MouseEvent e) { /*System.out.println("Moved out of spot");*/ }
+        public void mouseExited (MouseEvent e) { /*System.out.println("Moved out of spot"); }
             
-        public void mouseEntered(MouseEvent e) { /*System.out.println("Moved into spot");*/ }
+        public void mouseEntered(MouseEvent e) { /*System.out.println("Moved into spot"); }
 
         // Moves the chess pieces around the board, haven't added the game rules to restrict pieces (Nick)
         public void mouseClicked (MouseEvent e)
@@ -178,9 +179,6 @@ public class Spot extends JPanel
             System.out.println("Released on " + row + column);
         }
 
-
-        
-
-    }
+    }*/
 
 }

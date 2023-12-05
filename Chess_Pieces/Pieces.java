@@ -48,7 +48,7 @@ public abstract class Pieces implements Serializable {
 
     public abstract boolean checkPossibleMove(Spot s);
 
-    public ImageIcon returnImage()
+    public ImageIcon returnIconImg()
     {
         return pieceImage;
     }
