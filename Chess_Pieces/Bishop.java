@@ -19,7 +19,33 @@ public class Bishop extends Pieces
 
     public Vector < Integer > getPossibleMoves() //calls check PossibleMove, glows if possible to move, glows other color if can capture piece
     {
-        return new Vector<>();
+        Vector < Integer > moves = new Vector< Integer >();
+
+        for (int count = 1; count < 8; ++count)
+        {
+            moves.add(currentSpot.getrowNumber() - (count * teamnum));
+            moves.add(currentSpot.getcolumn() - (count * teamnum));
+        }
+        
+        for (int count = 1; count < 8; ++count)
+        {
+            moves.add(currentSpot.getrowNumber() + (count * teamnum));
+            moves.add(currentSpot.getcolumn() + (count * teamnum));
+        }
+
+        for (int count = 1; count < 8; ++count)
+        {
+            moves.add(currentSpot.getrowNumber() + (count * teamnum));
+            moves.add(currentSpot.getcolumn() - (count * teamnum));
+        }
+
+        for (int count = 1; count < 8; ++count)
+        {
+            moves.add(currentSpot.getrowNumber() - (count * teamnum));
+            moves.add(currentSpot.getcolumn() + (count * teamnum));
+        }
+    
+        return moves;
     }
 
     public boolean checkPossibleMove(Spot s)

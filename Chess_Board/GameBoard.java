@@ -88,7 +88,8 @@ public class GameBoard extends JPanel {
         for (int count = 0; count < moveableSpots.size(); count += 2)
         {
             System.out.println("Going to: " + (moveableSpots.elementAt(count)) + "," + (moveableSpots.elementAt(count + 1)));
-            grid[moveableSpots.elementAt(count) - 1][moveableSpots.elementAt(count + 1) - 1].setBorder(BorderFactory.createLineBorder(new Color(52, 219, 41)));
+            if (moveableSpots.elementAt(count) - 1 < 8 && moveableSpots.elementAt(count) - 1 >= 0 && moveableSpots.elementAt(count + 1) - 1 >= 0 && moveableSpots.elementAt(count + 1) - 1 < 8)
+                grid[moveableSpots.elementAt(count) - 1][moveableSpots.elementAt(count + 1) - 1].setBorder(BorderFactory.createLineBorder(new Color(52, 219, 41)));
         }
 
     }
