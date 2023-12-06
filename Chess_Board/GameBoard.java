@@ -3,10 +3,12 @@
 package Chess_Board;
 import java.awt.GridLayout;
 import java.awt.event.MouseListener;
+import java.util.Vector;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JLabel;
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 
@@ -15,14 +17,16 @@ import Chess_Pieces.*;
 public class GameBoard extends JPanel {
     // Might not need this depending on how we implment code
     private Spot grid[][];
+    private static Spot prevSpot, curSpot;
 
     public GameBoard()
     {
         setLayout(new GridLayout(8, 8));
+        grid = new Spot[8][8];
 
         for (int row = 0; row < 8; ++row)
             for (int col = 0; col < 8; ++col)
-                add(new Spot(row, col));
+                add(grid[row][col] = new Spot(row, col));
         
         MouseHandler handler = new MouseHandler();
         addMouseListener(handler);
@@ -44,19 +48,49 @@ public class GameBoard extends JPanel {
         // Moves the chess pieces around the board, haven't added the game rules to restrict pieces (Nick)
         public void mouseClicked (MouseEvent e)
         {
-            // Will have better naming convention by Saturday
-            
+            // Having logic issues in clicked as pressed and released are also called
+            System.out.println("Clicked");
         }
 
         // Dragging events
         public void mousePressed(MouseEvent e)
         {
-            System.out.println("Moused pressed on " + ((Spot) getComponentAt(getMousePosition())).getrow());
+            prevSpot = (Spot) getComponentAt(getMousePosition());
+            System.out.println("Pressed at " + prevSpot.getrow() + prevSpot.getcolumn());
+
+            if (!prevSpot.isAvailable())
+                possibleMoves();
         }
+
         public void mouseReleased(MouseEvent e)
         {
-            System.out.println("Released on " + ((Spot) getComponentAt(getMousePosition())).getrow());
+            curSpot = (Spot) getComponentAt(getMousePosition());
+            System.out.println("Released at " + curSpot.getrow() + curSpot.getcolumn());
+            
+            if (!prevSpot.isAvailable())
+            {
+                clearHighlights();
+
+                if (curSpot != prevSpot && (curSpot.isAvailable() || curSpot.getPieceOn().getTeamNum() != prevSpot.getPieceOn().getTeamNum()))
+                    curSpot.placePiece(prevSpot);
+            }
+
+            prevSpot = curSpot = null;
         }
+    }
+
+    public void possibleMoves()
+    {
+        grid[prevSpot.getrowNumber() - 1][prevSpot.getcolumn() - 1].setBorder(BorderFactory.createLineBorder(new Color(52, 219, 41)));
+
+        Vector< Integer > moveableSpots = prevSpot.getPieceOn().getPossibleMoves();
+
+        for (int count = 0; count < moveableSpots.size(); count += 2)
+        {
+            System.out.println("Going to: " + (moveableSpots.elementAt(count)) + "," + (moveableSpots.elementAt(count + 1)));
+            grid[moveableSpots.elementAt(count) - 1][moveableSpots.elementAt(count + 1) - 1].setBorder(BorderFactory.createLineBorder(new Color(52, 219, 41)));
+        }
+
     }
 
 
@@ -111,6 +145,8 @@ public class GameBoard extends JPanel {
         //while( )
 
     }
+
+
 
     public void showPossibleMoves(Pawn p) throws Exception {
         int x = p.getCurrentSpot().getrowNumber() - 1;
@@ -184,7 +220,7 @@ public class GameBoard extends JPanel {
             {
                 //resets the background color to its original color
                 //needs to happen after they click off of a piece
-                grid[i][j].setBackground(grid[i][j].getSpotColor());
+                grid[i][j].setBorder(BorderFactory.createLineBorder(Color.black));
             }
         }
     }

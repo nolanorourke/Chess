@@ -1,15 +1,15 @@
 // Name: Nicolas Azzi and Nolan O'Rourke
-
 package Chess_Pieces;
 import java.awt.Image;
 import java.io.Serializable;
 import javax.swing.ImageIcon;
 import Chess_Board.Spot;
+import java.util.Vector;
 
 
 //for help with mouse controls, see the following examples: 11: 28_29, 31_32, 34_35 - drag, 
 public abstract class Pieces implements Serializable {
-    protected Spot startingSpot;        // Not too sure how this would be helpful, better if we have future spot (Nick)
+    protected Spot startingSpot;        // I lied it's really useful
     protected Spot currentSpot;
     protected String name;
     protected boolean alive;
@@ -32,7 +32,7 @@ public abstract class Pieces implements Serializable {
         startingSpot = start;
         currentSpot = start;
         alive = true;
-        if(start.getrow() < 3)
+        if(start.getrow() > 'D')
             teamnum = 1;
         else
             teamnum = 2;
@@ -40,11 +40,12 @@ public abstract class Pieces implements Serializable {
         //set the call up so that we can either copy and paste or add it to parent constructor and it shoudl work for all of them
         String temp = name + "Piece" + teamnum + ".png";
         pieceImage = new ImageIcon(getClass().getResource(temp));
+        if (teamnum == 2)
+            teamnum = -1;
         // pieceImage.setImage(pieceImage.getImage().getScaledInstance(startingSpot.getWidth(), startingSpot.getHeight(), Image.SCALE_SMOOTH));
     }
 
-    public abstract void displayPossibleMoves(); // calls check PossibleMove, glows if possible to move, glows other
-                                                 // color if can capture piece
+    public abstract Vector < Integer > getPossibleMoves();     // Better to make this return possible moves it COULD do, allows for Gameboard to handle the game
 
     public abstract boolean checkPossibleMove(Spot s);
 

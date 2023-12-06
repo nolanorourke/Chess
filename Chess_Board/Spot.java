@@ -23,11 +23,7 @@ public class Spot extends JPanel
     private static boolean isTeam1Color = true;
     private boolean available;      // Better to name this emptySpace, not too sure what this is for (Nick)
     private Pieces pieceOn;
-    private ImageIcon pieceImage;
     private JLabel image;
-    private static ImageIcon moveImage = null;          // Copies the image to current panel
-    private static Spot prevSpot;                       // Used for deleting prev image (Chess piece)
-    private Spot curSpot;                               //feel like these last two should not be in the this class (Nolan)
 
     // Not too sure why we would need this but imma leave it (Nick)
     public Spot() 
@@ -61,17 +57,36 @@ public class Spot extends JPanel
         if (row == 'B' || row == 'G')
         {
             pieceOn = new Pawn(this);
-            pieceImage = pieceOn.returnIconImg();
-            image = new JLabel(pieceImage);
+            image = new JLabel(pieceOn.returnIconImg());
             add(image);
+            available = false;
+        }
+        else if ((row == 'A' || row == 'H'))
+        {
+            if (column == 1 || column == 8)
+                pieceOn = new Rook(this);
+            else if (column == 3 || column == 6)
+                pieceOn = new Bishop(this);
+            else if (column == 4 && row == 'A')
+                pieceOn = new Queen(this);
+            else if (column == 5 && row == 'H')
+                pieceOn = new Queen(this);
+            else if (column == 5 && row == 'A')
+                pieceOn = new King(this);
+            else
+                pieceOn = new King(this);
+            
+            image = new JLabel(pieceOn.returnIconImg());
+            add(image);
+            available = false;
         }
         else
+        {
             pieceOn = null;
-        //MouseHandler handler = new MouseHandler();
-        //addMouseListener(handler);
+            available = true;
+            image = null;
+        }
 
-        available = true;
-        curSpot = this;
     }
 
     // Used to resize chess images but not working
@@ -114,9 +129,27 @@ public class Spot extends JPanel
 
     public Color getSpotColor(){ return spaceColor; }
 
+    public JLabel getPieceImg () { return image; }
+
     public void removePiece ()
     {
         remove(image);
+        image = null;
+        pieceOn = null;
+        available = true;
+        repaint();
+    }
+
+    public void placePiece (Spot prevSpot)
+    {
+        if (image != null)
+            remove (image);
+        image = prevSpot.getPieceImg();
+        pieceOn = prevSpot.getPieceOn();
+        available = false;
+        add (image);
+        prevSpot.removePiece();
+        pieceOn.setCurrentSpot(this);
         repaint();
     }
 
@@ -134,51 +167,5 @@ public class Spot extends JPanel
     public Pieces getPieceOn() { return pieceOn; }
     public void setPieceOn(Pieces p) { pieceOn = p; }
 
-
-    // Starting to move mouse movements to Game Board (Nick)
-    /*// Mouse events below
-    private class MouseHandler implements MouseListener
-    {
-        
-        public void mouseExited (MouseEvent e) { /*System.out.println("Moved out of spot"); }
-            
-        public void mouseEntered(MouseEvent e) { /*System.out.println("Moved into spot"); }
-
-        // Moves the chess pieces around the board, haven't added the game rules to restrict pieces (Nick)
-        public void mouseClicked (MouseEvent e)
-        {
-            // Will have better naming convention by Saturday
-            if (moveImage == null && pieceImage != null)
-            {
-                moveImage = pieceImage;
-                prevSpot = curSpot;
-            }
-            else if (moveImage != null && pieceOn == null && prevSpot != curSpot)
-            {
-                pieceImage = moveImage;
-                image = new JLabel(pieceImage);
-                add(image);
-                moveImage = null;
-                prevSpot.removePiece();
-                prevSpot = null;
-            }
-            else
-            {
-                moveImage = null;
-                prevSpot = null;
-            }
-        }
-
-        // Dragging events
-        public void mousePressed(MouseEvent e)
-        {
-            System.out.println("Moused pressed on " + row + column);
-        }
-        public void mouseReleased(MouseEvent e)
-        {
-            System.out.println("Released on " + row + column);
-        }
-
-    }*/
 
 }

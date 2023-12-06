@@ -1,5 +1,7 @@
 package Chess_Pieces;
 
+import java.util.Vector;
+
 import Chess_Board.Spot;
 
 public class Knight extends Pieces
@@ -15,9 +17,9 @@ public class Knight extends Pieces
     }
     
 
-    public void displayPossibleMoves()//calls check PossibleMove, glows if possible to move, glows other color if can capture piece
+    public Vector < Integer > getPossibleMoves() //calls check PossibleMove, glows if possible to move, glows other color if can capture piece
     {
-        System.out.println("test");
+        return new Vector<>();
     }
     public boolean checkPossibleMove(Spot s)
     {
