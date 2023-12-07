@@ -31,10 +31,12 @@ public class GameBoard extends JPanel {
         addMouseListener(handler);
     }
 
+
     // Gotta figure out how to just make it a square, probably gonna ask Myers
     public void paintComponent (Graphics g)
     {
         super.paintComponent(g);
+
 
         // int width = getWidth();
         // int height = getHeight();
@@ -42,7 +44,7 @@ public class GameBoard extends JPanel {
         //     height = width;
         // else if(width > height)
         //     width = height;
-
+    
         // setSize(width, height);
     }
 
@@ -131,7 +133,6 @@ public class GameBoard extends JPanel {
                 Continuous = false;
         }
     }
-
 
     public void clearHighlights()
     {
