@@ -27,22 +27,23 @@ public class Pawn extends Pieces
     {
         Vector < Integer > moves = new Vector< Integer >();             // Row, Column
         
-        System.out.println("At: " + (currentSpot.getrowNumber()) + "," + (currentSpot.getcolumn()));
+        System.out.println("At: " + (currentSpot.getrowNumber()) + "," + (currentSpot.getColumn()));
         moves.add(currentSpot.getrowNumber() - (1 * teamnum));
-        moves.add(currentSpot.getcolumn());
+        moves.add(currentSpot.getColumn());
 
         if (currentSpot == startingSpot)
         {
             moves.add(currentSpot.getrowNumber() - (2 * teamnum));
-            moves.add(currentSpot.getcolumn());
+            moves.add(currentSpot.getColumn());
         }
 
-        for (Integer integer : moves)
-        {
-            System.out.println(integer);
-            if (integer < 0)
-                moves.remove(integer);
-        }
+        for (int count = 0; count < moves.size(); count += 2)
+            if (moves.elementAt(count) <= 0 || moves.elementAt(count) > 8 || moves.elementAt(count + 1) <= 0 || moves.elementAt(count + 1) > 8)
+            {
+                moves.removeElementAt(count);
+                moves.removeElementAt(count);
+            }
+
 
         return moves;
     }

@@ -125,7 +125,7 @@ public class Spot extends JPanel
 
     public int getrowNumber() { return rowNumber; }
 
-    public int getcolumn() { return column; }
+    public int getColumn() { return column; }
 
     public void setAvailable(boolean b) { available = b; }
 
@@ -167,6 +167,7 @@ public class Spot extends JPanel
 
     //doing this for the gameboard class so we can check which piece is on which space
     public Pieces getPieceOn() { return pieceOn; }
+    public int returnPieceTeam() { return pieceOn == null ? 0 : pieceOn.getTeamNum(); }
     public void setPieceOn(Pieces p) { pieceOn = p; }
 
 

@@ -204,7 +204,6 @@ public class ChessJPanel extends JPanel
 
     public void takePiece(Player taking, Spot s, Pieces p)//not sure what to make the parameters
     {
-        board.removePiece(p);
         taking.IncrementTaken();
         if(taking.getPlayerNumber() == 1)
             player[1].IncrementLost();
