@@ -13,7 +13,7 @@ public class Chess
         JFrame myFrame = new JFrame("Chess");
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         myFrame.setSize(650, 550);
-        myFrame.setMinimumSize(new Dimension(500, 400));
+        myFrame.setMinimumSize(new Dimension(700, 600));
 
         // Adds chess icon, had to do Chess.class to specifiy that it's static method
         myFrame.setIconImage(new ImageIcon( Chess.class.getResource("Chess_Piece.jpg") ).getImage());

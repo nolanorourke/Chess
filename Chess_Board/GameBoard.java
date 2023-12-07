@@ -35,6 +35,15 @@ public class GameBoard extends JPanel {
     public void paintComponent (Graphics g)
     {
         super.paintComponent(g);
+
+        // int width = getWidth();
+        // int height = getHeight();
+        // if(width < height)
+        //     height = width;
+        // else if(width > height)
+        //     width = height;
+
+        // setSize(width, height);
     }
 
 

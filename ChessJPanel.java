@@ -6,7 +6,9 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import javax.swing.JLabel;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -75,6 +77,10 @@ public class ChessJPanel extends JPanel
             add(new GameBoard());
             
         }
+        public void paintComponent(Graphics g)
+        {
+            
+        }
 
     }
 
@@ -85,61 +91,47 @@ public class ChessJPanel extends JPanel
         private int fontSize;       // Needed to resize font
         private DefaultTableModel moveHistory;
         private JTable moveHistoryTable;
-        
+        private JScrollPane scroller;
 
         EastPanel ()
         {
-            moveHistory = new DefaultTableModel();
+            moveHistory = new DefaultTableModel(){
+                //overwriting the isCellEditable function to always be false
+            public boolean isCellEditable(int row, int column)
+            {
+                return false;
+            }
+            };
             moveHistoryTable = new JTable(moveHistory);
-            JScrollPane scroller = new JScrollPane(moveHistoryTable);
+            scroller = new JScrollPane(moveHistoryTable);
 
-            setLayout(new GridBagLayout());
+            setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
             add(scroller);
-            GridBagConstraints gbc = new GridBagConstraints();
+
             moveHistory.addColumn("Turn");
             moveHistory.addColumn("Team 1 Move");
             moveHistory.addColumn("Team 2 Move");
-
-            
-            //turns = new JLabel("Player 1 turn");
-            //turns.setHorizontalAlignment(JLabel.CENTER);
-            //fontSize = turns.getFont().getSize();
-
-
-            // Sets the move grid
-            //MoveGrid moves = new MoveGrid();
-           
-            // Whose turn
-            gbc.fill = GridBagConstraints.VERTICAL;
-            gbc.gridy = 0;
-            gbc.weighty = 2;
-            // add(moveList, gbc);
-
-            //MoveGrid
-            //gbc.gridy = 1;
-            //gbc.gridheight = 6;
-            //gbc.weighty = 8;
-            add(scroller, gbc);
-
-            //Adds padding
-            // gbc.gridy = 8;
-            // gbc.gridheight = 1;
-            // gbc.weighty = 1;
-            // add(new JPanel(), gbc);
-            
-            Dimension maxWidth = new Dimension(200, Integer.MAX_VALUE);
-            setMaximumSize(maxWidth);
-            //setPreferredSize(maxWidth); //for some reason this fucks up the code
-
+    
+            moveHistoryTable.getColumnModel().getColumn(0).setPreferredWidth(50);
+            moveHistoryTable.getColumnModel().getColumn(1).setPreferredWidth(100);
+            moveHistoryTable.getColumnModel().getColumn(2).setPreferredWidth(100);
+            scroller.setPreferredSize(new Dimension(250, getHeight()));
+            addMoveToTable("e5 - e4", 1);
+            addMoveToTable("b6 - c6", 2);
+            addMoveToTable("Test again", 1);
         }
 
         // Dynamically resizes east Panel and components
         public void paintComponent(Graphics g)
         {
             super.paintComponent(g);
-            moves.setWidth(width);
-            setPreferredSize(new Dimension((int) (width * 0.2), getPreferredSize().height));
-            turns.setFont(new Font(turns.getFont().getName(), turns.getFont().getStyle(), (int) (fontSize * width * 0.002)));
+
+            moveHistoryTable.getColumnModel().getColumn(0).setWidth(getWidth()/20);
+            moveHistoryTable.getColumnModel().getColumn(1).setWidth(getWidth()/10);
+            moveHistoryTable.getColumnModel().getColumn(2).setWidth(getWidth()/10);
+            scroller.setPreferredSize(new Dimension(moveHistoryTable.getColumnModel().getColumn(0).getWidth() +
+            moveHistoryTable.getColumnModel().getColumn(1).getWidth()+
+            moveHistoryTable.getColumnModel().getColumn(2).getWidth(), getHeight()));
         }
 
         public void addMoveToTable(String move, int teamnum)
@@ -175,6 +167,7 @@ public class ChessJPanel extends JPanel
             // Buttons just for inital design
             newGame = new JButton("New Game");
             reset = new JButton("Reset");
+            
 
             // Takes off the border around text when you click button
             newGame.setFocusPainted(false);
@@ -204,6 +197,7 @@ public class ChessJPanel extends JPanel
 
     public void takePiece(Player taking, Spot s, Pieces p)//not sure what to make the parameters
     {
+        board.removePiece(p);
         taking.IncrementTaken();
         if(taking.getPlayerNumber() == 1)
             player[1].IncrementLost();
