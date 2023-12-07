@@ -73,4 +73,15 @@ public abstract class Pieces implements Serializable {
     public void setAlive(boolean b) { alive = b; }
 
     public int getTeamNum() { return teamnum; }
+
+    public boolean nextToPiece (Spot s)
+    {
+        if (s.getrow() - 1 == currentSpot.getrow() && s.getColumn() == currentSpot.getColumn() || s.getrow() + 1 == currentSpot.getrow() && s.getColumn() == currentSpot.getColumn()
+            || s.getrow() == currentSpot.getrow() && s.getColumn() + 1 == currentSpot.getColumn() || s.getrow() == currentSpot.getrow() && s.getColumn() - 1 == currentSpot.getColumn()
+            || s.getrow() + 1 == currentSpot.getrow() && s.getColumn() + 1 == currentSpot.getColumn() || s.getrow() - 1 == currentSpot.getrow() && s.getColumn() - 1 == currentSpot.getColumn()
+            || s.getrow() - 1 == currentSpot.getrow() && s.getColumn() + 1 == currentSpot.getColumn() || s.getrow() + 1 == currentSpot.getrow() && s.getColumn() - 1 == currentSpot.getColumn()
+            || s.getrow() + 1 == currentSpot.getrow() && s.getColumn() - 1 == currentSpot.getColumn() || s.getrow() - 1 == currentSpot.getrow() && s.getColumn() + 1 == currentSpot.getColumn())
+            return true;
+        return false;
+    }
 }

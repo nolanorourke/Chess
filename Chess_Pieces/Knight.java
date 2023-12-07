@@ -20,14 +20,43 @@ public class Knight extends Pieces
     public Vector < Integer > getPossibleMoves() //calls check PossibleMove, glows if possible to move, glows other color if can capture piece
     {
         Vector < Integer > moves = new Vector< Integer >();
-        //could do two possible vectors, for pieces that have finite number of moves, keeps track of different calculations, says if there is a piece on it or not before displaying
 
+        moves.add(currentSpot.getrowNumber() - (2 * teamnum));
+        moves.add(currentSpot.getColumn() - (1 * teamnum));
+    
+        moves.add(currentSpot.getrowNumber() - (2 * teamnum));
+        moves.add(currentSpot.getColumn() + (1 * teamnum));
+        
+        moves.add(currentSpot.getrowNumber() - (1 * teamnum));
+        moves.add(currentSpot.getColumn() + (2 * teamnum));
 
-        for (int count = -1; count < 2; ++count)
-        {
-            
-        }
-        return new Vector<>();
+        moves.add(currentSpot.getrowNumber() - (1 * teamnum));
+        moves.add(currentSpot.getColumn() - (2 * teamnum));
+
+        moves.add(currentSpot.getrowNumber() + (2 * teamnum));
+        moves.add(currentSpot.getColumn() - (1 * teamnum));
+    
+        moves.add(currentSpot.getrowNumber() + (2 * teamnum));
+        moves.add(currentSpot.getColumn() + (1 * teamnum));
+        
+        moves.add(currentSpot.getrowNumber() + (1 * teamnum));
+        moves.add(currentSpot.getColumn() + (2 * teamnum));
+
+        moves.add(currentSpot.getrowNumber() + (1 * teamnum));
+        moves.add(currentSpot.getColumn() - (2 * teamnum));
+
+        for (Integer integer : moves)
+            System.out.print(integer + " ");
+        System.out.println();
+        for (int count = 0; count < moves.size(); count += 2)
+            if (moves.elementAt(count) <= 0 || moves.elementAt(count) > 8 || moves.elementAt(count + 1) <= 0 || moves.elementAt(count + 1) > 8)
+            {
+                moves.removeElementAt(count);
+                moves.removeElementAt(count);
+                count-=2;
+            }
+    
+        return moves;
     }
     public boolean checkPossibleMove(Spot s)
     {

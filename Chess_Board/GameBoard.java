@@ -10,14 +10,13 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-
-
-import Chess_Pieces.*;
+import javax.swing.border.LineBorder;
 
 public class GameBoard extends JPanel {
     // Might not need this depending on how we implment code
     private Spot grid[][];
     private static Spot prevSpot, curSpot;
+    private int turn = 1;                   // Whose turn it is
 
     public GameBoard()
     {
@@ -67,23 +66,27 @@ public class GameBoard extends JPanel {
         public void mousePressed(MouseEvent e)
         {
             prevSpot = (Spot) getComponentAt(getMousePosition());
-            System.out.println("Pressed at " + prevSpot.getrow() + prevSpot.getcolumn());
+            System.out.println("Pressed at " + prevSpot.getrow() + prevSpot.getColumn());
 
-            if (!prevSpot.isAvailable())
+            if (!prevSpot.isAvailable() && prevSpot.returnPieceTeam() == turn)
                 possibleMoves();
         }
 
         public void mouseReleased(MouseEvent e)
         {
             curSpot = (Spot) getComponentAt(getMousePosition());
-            System.out.println("Released at " + curSpot.getrow() + curSpot.getcolumn());
+            System.out.println("Released at " + curSpot.getrow() + curSpot.getColumn());            // DEBUG
             
+            // Used to place piece or deselect it
             if (!prevSpot.isAvailable())
             {
-                clearHighlights();
-
-                if (curSpot != prevSpot && (curSpot.isAvailable() || curSpot.getPieceOn().getTeamNum() != prevSpot.getPieceOn().getTeamNum()))
+                System.out.println(((LineBorder) curSpot.getBorder()).getLineColor().equals(new Color(52, 219, 41)));
+                if (curSpot != prevSpot && ((LineBorder) curSpot.getBorder()).getLineColor().equals(new Color(52, 219, 41)))
+                {
                     curSpot.placePiece(prevSpot);
+                    turn *= -1;
+                }
+                clearHighlights();
             }
 
             prevSpot = curSpot = null;
@@ -92,14 +95,26 @@ public class GameBoard extends JPanel {
 
     public void possibleMoves()
     {
-        grid[prevSpot.getrowNumber() - 1][prevSpot.getcolumn() - 1].setBorder(BorderFactory.createLineBorder(new Color(52, 219, 41)));
+        // Current spot
+        grid[prevSpot.getrowNumber() - 1][prevSpot.getColumn() - 1].setBorder(BorderFactory.createLineBorder(Color.yellow));
 
+        // All possible moves piece could do
         Vector< Integer > moveableSpots = prevSpot.getPieceOn().getPossibleMoves();
-
+        // Used to see if spots are allowed if it's path is blocked by a piece
+        boolean Continuous = true;
         for (int count = 0; count < moveableSpots.size(); count += 2)
         {
-            System.out.println("Going to: " + (moveableSpots.elementAt(count)) + "," + (moveableSpots.elementAt(count + 1)));
-            if (moveableSpots.elementAt(count) - 1 < 8 && moveableSpots.elementAt(count) - 1 >= 0 && moveableSpots.elementAt(count + 1) - 1 >= 0 && moveableSpots.elementAt(count + 1) - 1 < 8)
+            boolean availableSpace = grid[moveableSpots.elementAt(count) - 1][moveableSpots.elementAt(count + 1) - 1].isAvailable();
+
+            // Knights don't get blocked
+            if (prevSpot.getPieceOn().getName() == "Knight")
+                Continuous = true;
+
+            // Block of code checks logic with moveableSpots to see if it's a VALID move
+            if (moveableSpots.size() != 0 && availableSpace && Continuous)
+                grid[moveableSpots.elementAt(count) - 1][moveableSpots.elementAt(count + 1) - 1].setBorder(BorderFactory.createLineBorder(new Color(52, 219, 41)));
+            else if (!availableSpace && Continuous && grid[moveableSpots.elementAt(count) - 1][moveableSpots.elementAt(count + 1) - 1].returnPieceTeam() != prevSpot.returnPieceTeam())
+            {
                 grid[moveableSpots.elementAt(count) - 1][moveableSpots.elementAt(count + 1) - 1].setBorder(BorderFactory.createLineBorder(new Color(52, 219, 41)));
         }
 
@@ -166,7 +181,46 @@ public class GameBoard extends JPanel {
         //boolean shownAll = false;
         int i = 1;
         //deal with first move in game being able to be two spots forward
-        
+        //check the three spots "in front of it", these will depend on which team, all of them will
+        //if pawn gets to other side of the board, it can change to any piece the player wants
+
+
+
+
+        // if(p.getCurrentSpot() ==  p.getStartingSpot()) //if it is at starting position
+        // {
+
+        // }
+        // while(i >= -2)
+        // {
+        //     try 
+        //     {
+        //         if(p.getTeamNum() == 1)
+        //         {
+                    
+        //             //grid[x][y+1].highlight();
+        //             if(!grid[x-i][y+1].isAvailable()) //if the space is not taken by a piece
+        //             {
+        //                 if(grid[x-i][y+1].getPieceOn().getTeamNum() != p.getTeamNum())//if the piece diagonal up one is on the same team
+        //                 {
+        //                     grid[x-i][y+1].highlight();
+        //                     i--;
+        //                 }
+        //             }
+        //         }
+        //         else
+        //         {
+        //             grid[x-i][y-1].highlight();
+        //         }
+
+                
+            
+        //     } 
+        //     catch (Exception exception) 
+        //     {
+        //         i--;
+        //     }
+        // }
 
 
     }
