@@ -32,10 +32,21 @@ public class GameBoard extends JPanel {
         addMouseListener(handler);
     }
 
+
     // Gotta figure out how to just make it a square, probably gonna ask Myers
     public void paintComponent (Graphics g)
     {
         super.paintComponent(g);
+
+
+        // int width = getWidth();
+        // int height = getHeight();
+        // if(width < height)
+        //     height = width;
+        // else if(width > height)
+        //     width = height;
+    
+        // setSize(width, height);
     }
 
 
@@ -155,46 +166,7 @@ public class GameBoard extends JPanel {
         //boolean shownAll = false;
         int i = 1;
         //deal with first move in game being able to be two spots forward
-        //check the three spots "in front of it", these will depend on which team, all of them will
-        //if pawn gets to other side of the board, it can change to any piece the player wants
-
-
-
-
-        // if(p.getCurrentSpot() ==  p.getStartingSpot()) //if it is at starting position
-        // {
-
-        // }
-        // while(i >= -2)
-        // {
-        //     try 
-        //     {
-        //         if(p.getTeamNum() == 1)
-        //         {
-                    
-        //             //grid[x][y+1].highlight();
-        //             if(!grid[x-i][y+1].isAvailable()) //if the space is not taken by a piece
-        //             {
-        //                 if(grid[x-i][y+1].getPieceOn().getTeamNum() != p.getTeamNum())//if the piece diagonal up one is on the same team
-        //                 {
-        //                     grid[x-i][y+1].highlight();
-        //                     i--;
-        //                 }
-        //             }
-        //         }
-        //         else
-        //         {
-        //             grid[x-i][y-1].highlight();
-        //         }
-
-                
-            
-        //     } 
-        //     catch (Exception exception) 
-        //     {
-        //         i--;
-        //     }
-        // }
+        
 
 
     }

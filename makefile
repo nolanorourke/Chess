@@ -12,7 +12,7 @@ default:
 	$(JC) $(JFLAGS) Chess.java
 
 run:
-	$(JC) $(JFLAGS) Chess.java && $(J) Chess
+	rm -rf *.class && $(JC) $(JFLAGS) Chess.java && $(J) Chess
 jar:
 	$(JR) ChessProject.jar *
 clean:
