@@ -30,6 +30,10 @@ public class Pawn extends Pieces
         System.out.println("At: " + (currentSpot.getrowNumber()) + "," + (currentSpot.getColumn()));
         moves.add(currentSpot.getrowNumber() - (1 * teamnum));
         moves.add(currentSpot.getColumn());
+        moves.add(currentSpot.getrowNumber() - (1 * teamnum));
+        moves.add(currentSpot.getColumn() + 1);
+        moves.add(currentSpot.getrowNumber() - (1 * teamnum));
+        moves.add(currentSpot.getColumn() - 1);
 
         if (currentSpot == startingSpot)
         {

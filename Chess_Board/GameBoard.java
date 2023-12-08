@@ -110,8 +110,15 @@ public class GameBoard extends JPanel {
             if (prevSpot.getPieceOn().getName() == "Knight")
                 Continuous = true;
 
-            // Block of code checks logic with moveableSpots to see if it's a VALID move
-            if (moveableSpots.size() != 0 && availableSpace && Continuous)
+            // Block of code checks logic with moveableSpots to see if it's a VALID move (Pawn special move)
+            if (prevSpot.getPieceOn().getName() == "Pawn")
+            {
+                if ((count == 0 || count == 6) && availableSpace)
+                    grid[moveableSpots.elementAt(count) - 1][moveableSpots.elementAt(count + 1) - 1].setBorder(BorderFactory.createLineBorder(new Color(52, 219, 41)));
+                else if (count >= 2 && count < 6 && !availableSpace && grid[moveableSpots.elementAt(count) - 1][moveableSpots.elementAt(count + 1) - 1].returnPieceTeam() != prevSpot.returnPieceTeam())
+                    grid[moveableSpots.elementAt(count) - 1][moveableSpots.elementAt(count + 1) - 1].setBorder(BorderFactory.createLineBorder(new Color(52, 219, 41)));
+            }
+            else if (moveableSpots.size() != 0 && availableSpace && Continuous)
                 grid[moveableSpots.elementAt(count) - 1][moveableSpots.elementAt(count + 1) - 1].setBorder(BorderFactory.createLineBorder(new Color(52, 219, 41)));
             else if (!availableSpace && Continuous && grid[moveableSpots.elementAt(count) - 1][moveableSpots.elementAt(count + 1) - 1].returnPieceTeam() != prevSpot.returnPieceTeam())
             {
