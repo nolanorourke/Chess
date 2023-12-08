@@ -74,22 +74,29 @@ public class GameBoard extends JPanel {
 
         public void mouseReleased(MouseEvent e)
         {
-            curSpot = (Spot) getComponentAt(getMousePosition());
-            System.out.println("Released at " + curSpot.getrow() + curSpot.getColumn());            // DEBUG
-            
-            // Used to place piece or deselect it
-            if (!prevSpot.isAvailable())
+            try
             {
-                System.out.println(((LineBorder) curSpot.getBorder()).getLineColor().equals(new Color(52, 219, 41)));
-                if (curSpot != prevSpot && ((LineBorder) curSpot.getBorder()).getLineColor().equals(new Color(52, 219, 41)))
+                curSpot = (Spot) getComponentAt(getMousePosition());
+                System.out.println("Released at " + curSpot.getrow() + curSpot.getColumn());            // DEBUG
+                
+                // Used to place piece or deselect it
+                if (!prevSpot.isAvailable())
                 {
-                    curSpot.placePiece(prevSpot);
-                    turn *= -1;
+                    System.out.println(((LineBorder) curSpot.getBorder()).getLineColor().equals(new Color(52, 219, 41)));
+                    if (curSpot != prevSpot && ((LineBorder) curSpot.getBorder()).getLineColor().equals(new Color(52, 219, 41)))
+                    {
+                        curSpot.placePiece(prevSpot);
+                        turn *= -1;
+                    }
+                    clearHighlights();
                 }
+
+                prevSpot = curSpot = null;
+            }
+            catch (Exception except)
+            {
                 clearHighlights();
             }
-
-            prevSpot = curSpot = null;
         }
     }
 
