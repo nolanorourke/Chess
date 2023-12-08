@@ -1,6 +1,7 @@
 
 // Name: Nicolas Azzi and Nolan O'Rourke
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -106,7 +107,7 @@ public class ChessJPanel extends JPanel {
             currentBoard = new GameBoard();
             topPanel = new TopPanel();
             add(topPanel, BorderLayout.NORTH);
-            add(currentBoard);
+            add(currentBoard, BorderLayout.CENTER);
         }
 
         public void paintComponent(Graphics g) {
@@ -198,10 +199,12 @@ public class ChessJPanel extends JPanel {
         private JButton newGame, reset, instructions;
         private JLabel newGameLabel, resetLabel, howToPlayLabel;
         private Icon newGame1, newGame2, reset1, reset2, howToPlay1, howToPlay2;
+        private Color backgroundColor;
 
         BottomPanel() 
         {
             setLayout(new FlowLayout(FlowLayout.RIGHT, 10, getWidth()/3));
+            backgroundColor = getBackground();
             // newGame1 = new ImageIcon(getClass().getResource("NewGame1.png"));
             // newGame2 = new ImageIcon(getClass().getResource("NewGame2.png"));
 
@@ -222,18 +225,20 @@ public class ChessJPanel extends JPanel {
             newGameLabel.setToolTipText("Start a new game");
             newGameLabel.setVerticalTextPosition( SwingConstants.BOTTOM );
             newGameLabel.setHorizontalTextPosition( SwingConstants.CENTER );
-
+            newGameLabel.setOpaque(true);
 
             resetLabel = new JLabel("Reset", reset1, SwingConstants.LEFT);
             resetLabel.setToolTipText("Reset current game to start");
             resetLabel.setVerticalTextPosition( SwingConstants.BOTTOM );
             resetLabel.setHorizontalTextPosition( SwingConstants.CENTER );
+            resetLabel.setOpaque(true);
 
 
             howToPlayLabel = new JLabel("How To Play", howToPlay1, SwingConstants.CENTER);
             howToPlayLabel.setToolTipText("Open page to Instructions");
             howToPlayLabel.setVerticalTextPosition( SwingConstants.BOTTOM );
             howToPlayLabel.setHorizontalTextPosition( SwingConstants.CENTER );
+            howToPlayLabel.setOpaque(true);
 
             MouseHandler mousey = new MouseHandler();
             newGameLabel.addMouseListener(mousey);
@@ -275,64 +280,117 @@ public class ChessJPanel extends JPanel {
             // add(reset);
 
         }
-        private class MouseHandler implements MouseListener {
-        public void mouseExited(MouseEvent e) {
+        private class MouseHandler implements MouseListener 
+        {
+        public void mouseExited(MouseEvent e) 
+        {
             if(e.getSource() ==newGameLabel)
             {
                 newGameLabel.setIcon(newGame1);
+                newGameLabel.setForeground(Color.BLACK);
+                newGameLabel.setBackground(backgroundColor);
             }
             else if(e.getSource() == resetLabel)
             {
                 resetLabel.setIcon(reset1);
+                resetLabel.setForeground(Color.BLACK);
+                resetLabel.setBackground(backgroundColor);
             }
             else if(e.getSource() == howToPlayLabel)
             {
                 howToPlayLabel.setIcon(howToPlay1);
+                howToPlayLabel.setForeground(Color.BLACK);
+                howToPlayLabel.setBackground(backgroundColor);
             }
 
          }
 
-        public void mouseEntered(MouseEvent e) {
+        public void mouseEntered(MouseEvent e) 
+        {
             if(e.getSource() ==newGameLabel)
             {
                 newGameLabel.setIcon(newGame2);
+                newGameLabel.setBackground(Color.LIGHT_GRAY);
+                newGameLabel.setForeground(Color.RED);
             }
             else if(e.getSource() == resetLabel)
             {
                 resetLabel.setIcon(reset2);
+                resetLabel.setBackground(Color.LIGHT_GRAY);
+                resetLabel.setForeground(Color.RED);
+
             }
             else if(e.getSource() == howToPlayLabel)
             {
                 howToPlayLabel.setIcon(howToPlay2);
+                howToPlayLabel.setBackground(Color.LIGHT_GRAY);
+                howToPlayLabel.setForeground(Color.RED);
+
             }
 
          }
 
-        public void mouseClicked(MouseEvent e) {
+        public void mouseClicked(MouseEvent e) 
+        {
+            // if(e.getSource() ==newGameLabel)
+            // {
+            //     newGameLabel.setIcon(newGame2);
+            //     newGameLabel.setIcon(newGame1);
+            //     newGameLabel.setIcon(newGame2);
+
+            //     startNewGame();
+            // }
+            // else if(e.getSource() == resetLabel)
+            // {
+            //     resetLabel.setIcon(reset2);
+            //     resetLabel.setIcon(reset1);                
+            //     resetLabel.setIcon(reset2);
+            //     resetBoard();
+            // }
+            // else if(e.getSource() == howToPlayLabel)
+            // {
+            //     howToPlayLabel.setIcon(howToPlay2);
+            //     howToPlayLabel.setIcon(howToPlay1);
+            //     howToPlayLabel.setIcon(howToPlay2);
+
+            // }
+
+        }
+
+        public void mousePressed(MouseEvent e) 
+        {
             if(e.getSource() ==newGameLabel)
             {
-                newGameLabel.setIcon(newGame2);
-                newGameLabel.setIcon(newGame1);
                 startNewGame();
+                newGameLabel.setBackground(Color.GRAY);
             }
             else if(e.getSource() == resetLabel)
             {
-                resetLabel.setIcon(reset2);
-                resetLabel.setIcon(reset1);
                 resetBoard();
+                resetLabel.setBackground(Color.GRAY);
+
             }
             else if(e.getSource() == howToPlayLabel)
             {
-                howToPlayLabel.setIcon(howToPlay2);
-                howToPlayLabel.setIcon(howToPlay1);
+                howToPlayLabel.setBackground(Color.GRAY);
+            } 
+        }
+
+        public void mouseReleased(MouseEvent e)
+        {
+            if(e.getSource() ==newGameLabel)
+            {
+                newGameLabel.setBackground(Color.LIGHT_GRAY);
             }
+            else if(e.getSource() == resetLabel)
+            {
+                resetLabel.setBackground(Color.LIGHT_GRAY);
 
-        }
-
-        public void mousePressed(MouseEvent e) {
-        }
-
-        public void mouseReleased(MouseEvent e){ 
+            }
+            else if(e.getSource() == howToPlayLabel)
+            {
+                howToPlayLabel.setBackground(Color.LIGHT_GRAY);
+            } 
         }
     }
 
@@ -343,22 +401,18 @@ public class ChessJPanel extends JPanel {
         return new ImageIcon(scaledImage);
     }
         // Dynamically resize
-        public void paintComponent(Graphics g) {
-            // Resizes Frame
-            super.paintComponent(g);
-            //setPreferredSize(new Dimension(getPreferredSize().width, (int) (height * 0.1)));
+    public void paintComponent(Graphics g) 
+    {
+        // Resizes Frame
+        super.paintComponent(g);
+        //setPreferredSize(new Dimension(getPreferredSize().width, (int) (height * 0.1)));
 
 
 
 
-            // Resizes button and font
-            // newGameLabel.setPreferredSize(new Dimension((int) (0.15 * width), (int) (0.06 * height)));
-            // newGameLabel.setFont(new Font(newGame.getFont().getName(), newGame.getFont().getStyle(), (int) ((height + width) * 0.01)));
-            // resetLabel.setPreferredSize(new Dimension((int) (0.12 * width), (int) (0.06 * height)));
-            //resetLabel.setFont(new Font(reset.getFont().getName(), reset.getFont().getStyle(), (int) ((height + width) * 0.01)));
-        }
+
     }
-
+    }
     public void resetBoard()
     {
         remove(currentBoard);
@@ -382,4 +436,5 @@ public class ChessJPanel extends JPanel {
         eastPanel.turnNum = 1;
         update(getGraphics());
     }
+
 }
