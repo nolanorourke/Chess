@@ -20,7 +20,7 @@ public class Spot extends JPanel
     private int rowNumber;          // What row it's at
     private int column;
     private Color spaceColor;
-    private static boolean isTeam1Color = true;
+    private static boolean isTeam1Color = false;
     private boolean available;      // Better to name this emptySpace, not too sure what this is for (Nick)
     private Pieces pieceOn;
     private JLabel image;

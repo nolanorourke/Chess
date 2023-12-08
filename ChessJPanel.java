@@ -2,6 +2,7 @@
 // Name: Nicolas Azzi and Nolan O'Rourke
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -29,6 +30,7 @@ import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
+import java.net.URI;
 import java.net.URL;
 
 import Chess_Board.GameBoard;
@@ -44,6 +46,7 @@ public class ChessJPanel extends JPanel {
     private EastPanel eastPanel;
     private BottomPanel bottomPanel;
     private TopPanel topPanel;
+    private Desktop desktop = Desktop.getDesktop();
 
     ChessJPanel() {
         // Sets JPanel
@@ -372,6 +375,14 @@ public class ChessJPanel extends JPanel {
             }
             else if(e.getSource() == howToPlayLabel)
             {
+                try
+                {
+                    openLink();
+                }
+                catch(Exception exception)
+                {
+                    System.out.println("\nError opening link");
+                }
                 howToPlayLabel.setBackground(Color.GRAY);
             } 
         }
@@ -435,6 +446,11 @@ public class ChessJPanel extends JPanel {
         eastPanel.clearMoveHistory();
         eastPanel.turnNum = 1;
         update(getGraphics());
+    }
+
+    public void openLink() throws Exception
+    {
+        desktop.browse(new URI("https://www.chess.com/learn-how-to-play-chess"));
     }
 
 }
