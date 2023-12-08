@@ -7,6 +7,9 @@ import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JLabel;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -21,9 +24,11 @@ import Chess_Pieces.*;
 
 public class ChessJPanel extends JPanel
 {
+
     // Used to dynamically resize
     private int width, height;
-    private GameBoard board = new GameBoard();
+    private GameBoard currentBoard;
+    private CenterPanel centerPanel;
     private Player player[]; //two Players [0] is 1, [1] is 2
     ChessJPanel()
     {
@@ -31,7 +36,8 @@ public class ChessJPanel extends JPanel
         setLayout(new BorderLayout());
 
         // Adds panels
-        add(new CenterPanel(), BorderLayout.CENTER);
+        centerPanel = new CenterPanel();
+        add(centerPanel, BorderLayout.CENTER);
         add(new EastPanel(), BorderLayout.EAST);
         add(new BottomPanel(), BorderLayout.SOUTH);
     }
@@ -51,7 +57,7 @@ public class ChessJPanel extends JPanel
 
         TopPanel()
         {
-            title = new JLabel("Player 1 vs Player 2");
+            title = new JLabel("Player " + currentBoard.getTurn() + " turn");
             fontSize = title.getFont().getSize();
             add(title);
         }
@@ -62,6 +68,7 @@ public class ChessJPanel extends JPanel
             super.paintComponent(g);
             setPreferredSize(new Dimension(getPreferredSize().width, (int) (height * 0.07)));
 
+            title.setText("Player " + currentBoard.getTurn() + " turn");
             // Resizes font
             title.setFont(new Font(title.getFont().getName(), title.getFont().getStyle(), (int) (fontSize * height * 0.003)));
         }
@@ -73,13 +80,23 @@ public class ChessJPanel extends JPanel
         CenterPanel()
         {
             setLayout(new BorderLayout());
+            currentBoard = new GameBoard();
             add(new TopPanel(), BorderLayout.NORTH);
-            add(new GameBoard());
+            add(currentBoard);
             
         }
         public void paintComponent(Graphics g)
         {
-            
+            super.paintComponent(g);
+        }
+
+        // Resets the chess board
+        public void resetBoard()
+        {
+            remove(currentBoard);
+            currentBoard = new GameBoard();
+            add(currentBoard);
+            update(getGraphics());
         }
 
     }
@@ -164,10 +181,15 @@ public class ChessJPanel extends JPanel
         {
             setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 5));
             
-            // Buttons just for inital design
+            // Resets game button
             newGame = new JButton("New Game");
+            newGame.addActionListener(new ActionListener() {
+                public void actionPerformed ( ActionEvent e )
+                {
+                    centerPanel.resetBoard();
+                }
+            });
             reset = new JButton("Reset");
-            
 
             // Takes off the border around text when you click button
             newGame.setFocusPainted(false);
@@ -193,15 +215,5 @@ public class ChessJPanel extends JPanel
             reset.setPreferredSize(new Dimension((int) (0.12 * width), (int) (0.06 * height)));
             reset.setFont(new Font(reset.getFont().getName(), reset.getFont().getStyle(), (int) ((height + width) * 0.01)));
         }
-    }
-
-    public void takePiece(Player taking, Spot s, Pieces p)  //not sure what to make the parameters
-    {
-        taking.IncrementTaken();
-        if(taking.getPlayerNumber() == 1)
-            player[1].IncrementLost();
-        else
-            player[0].IncrementLost();
-
     }
 }

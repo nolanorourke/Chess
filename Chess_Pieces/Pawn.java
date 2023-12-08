@@ -37,6 +37,7 @@ public class Pawn extends Pieces
 
         if (currentSpot == startingSpot)
         {
+            System.out.println("Double jump would be at " + (currentSpot.getrowNumber() - (2 * teamnum)) + ", " + currentSpot.getColumn());
             moves.add(currentSpot.getrowNumber() - (2 * teamnum));
             moves.add(currentSpot.getColumn());
         }

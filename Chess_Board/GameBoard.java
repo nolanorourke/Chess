@@ -113,10 +113,16 @@ public class GameBoard extends JPanel {
             // Block of code checks logic with moveableSpots to see if it's a VALID move (Pawn special move)
             if (prevSpot.getPieceOn().getName() == "Pawn")
             {
-                if ((count == 0 || count == 6) && availableSpace)
+                if (moveableSpots.elementAt(count + 1) == prevSpot.getColumn() && availableSpace)
+                {
+                    System.out.println((moveableSpots.elementAt(count) - 1) + " , " + (moveableSpots.elementAt(count + 1) - 1));
+
                     grid[moveableSpots.elementAt(count) - 1][moveableSpots.elementAt(count + 1) - 1].setBorder(BorderFactory.createLineBorder(new Color(52, 219, 41)));
-                else if (count >= 2 && count < 6 && !availableSpace && grid[moveableSpots.elementAt(count) - 1][moveableSpots.elementAt(count + 1) - 1].returnPieceTeam() != prevSpot.returnPieceTeam())
+                }
+                else if (!availableSpace && moveableSpots.elementAt(count + 1) != prevSpot.getColumn() && grid[moveableSpots.elementAt(count) - 1][moveableSpots.elementAt(count + 1) - 1].returnPieceTeam() != prevSpot.returnPieceTeam())
+                {
                     grid[moveableSpots.elementAt(count) - 1][moveableSpots.elementAt(count + 1) - 1].setBorder(BorderFactory.createLineBorder(new Color(52, 219, 41)));
+                }
             }
             else if (moveableSpots.size() != 0 && availableSpace && Continuous)
                 grid[moveableSpots.elementAt(count) - 1][moveableSpots.elementAt(count + 1) - 1].setBorder(BorderFactory.createLineBorder(new Color(52, 219, 41)));
@@ -143,16 +149,15 @@ public class GameBoard extends JPanel {
 
     public void clearHighlights()
     {
+        //resets the background color to its original color
+        //needs to happen after they click off of a piece
         for(int i = 0; i < 8; i++)
-        {
             for(int j = 0; j < 8; j++)
-            {
-                //resets the background color to its original color
-                //needs to happen after they click off of a piece
                 grid[i][j].setBorder(BorderFactory.createLineBorder(Color.black));
-            }
-        }
     }
+
+    public int getTurn () { return turn == 1 ? 1 : 2; }
+
 }
 
 
