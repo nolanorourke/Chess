@@ -16,7 +16,7 @@ import javax.swing.border.LineBorder;
 public class GameBoard extends JPanel {
     // Might not need this depending on how we implment code
     private Spot grid[][];
-    private static Spot prevSpot, curSpot;
+    private static Spot prevSpot, curSpot, temp;
     private int turn = 1; // Whose turn it is
     private String moveinterp;
 
@@ -48,8 +48,15 @@ public class GameBoard extends JPanel {
         // Moves the chess pieces around the board, haven't added the game rules to
         // restrict pieces (Nick)
         public void mouseClicked(MouseEvent e) {
-            // Having logic issues in clicked as pressed and released are also called
-            System.out.println("Clicked");
+            // prevSpot = (Spot) getComponentAt(getMousePosition());
+            // if (!prevSpot.isAvailable() && prevSpot.returnPieceTeam() == turn)
+            //     possibleMoves();
+            // if(prevSpot.getrow() != temp.getrow() && temp.getColumn() != temp.getColumn())
+            // {
+            //     temp = (Spot)getComponentAt(getMousePosition());
+            //     //clearHighLights();
+            // }
+
         }
 
         // Dragging events
@@ -160,4 +167,5 @@ public class GameBoard extends JPanel {
         return moveinterp == null ? "" : moveinterp;
     }
 
+    
 }
