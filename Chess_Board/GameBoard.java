@@ -3,14 +3,22 @@
 package Chess_Board;
 
 import java.awt.GridLayout;
-import java.awt.event.MouseListener;
 import java.util.Vector;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.MouseEvent;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JRadioButtonMenuItem;
 import javax.swing.border.LineBorder;
 
 public class GameBoard extends JPanel {
@@ -19,6 +27,10 @@ public class GameBoard extends JPanel {
     private static Spot prevSpot, curSpot, temp;
     private int turn = 1; // Whose turn it is
     private String moveinterp;
+
+    private JOptionPane empassantPopup;
+    private JRadioButtonMenuItem pieceOptions[];
+    private JButton confirm;
 
     public GameBoard() {
         setLayout(new GridLayout(8, 8));
@@ -85,8 +97,30 @@ public class GameBoard extends JPanel {
                         else if (curSpot.getPieceOn().getTeamNum() != prevSpot.getPieceOn().getTeamNum())
                             middle = " x ";
                         curSpot.placePiece(prevSpot);
+                        moveinterp = prevSpot.toString() + middle + curSpot.toString();
+                        if(curSpot.getPieceOn().getName() == "Pawn")
+                        {
+                            if(curSpot.getPieceOn().getTeamNum() == 1)
+                            {
+                                if(curSpot.getrow() == 'A')
+                                {
+                                    String temp = showChoices(curSpot);
+                                    moveinterp += "= " + temp.charAt(0);
+                                    curSpot.upgrade(temp);
+                                    
+                                }
+                            }
+                            else if(curSpot.getPieceOn().getTeamNum() == 2)
+                            {
+                                if(curSpot.getrow() == 'G')
+                                {
+                                    String temp = showChoices(curSpot);
+                                    moveinterp += "= " + temp.charAt(0);
+                                    curSpot.upgrade(temp);                                }
+                            }
+                        }
                         turn *= -1;
-                        moveinterp = curSpot.toString() + middle + prevSpot.toString();
+                        //moveinterp = prevSpot.toString() + middle + curSpot.toString();
                     }
                     clearHighlights();
                 }
@@ -168,4 +202,49 @@ public class GameBoard extends JPanel {
     }
 
     
+    public String showChoices(Spot s) 
+    {
+        JFrame frame = new JFrame();
+        frame.setAlwaysOnTop(true);
+
+        confirm = new JButton("Confirm");
+        String options[] = {"Queen", "Bishop", "Knight", "Rook"};
+        final String[] pieceChose = {" "};
+        //empassantPopup = new JOptionPane();
+        pieceOptions = new JRadioButtonMenuItem[options.length];
+        ButtonGroup group = new ButtonGroup();
+
+        for(int i = 0; i < pieceOptions.length; i++)
+        {
+            pieceOptions[i] = new JRadioButtonMenuItem(options[i]);
+            group.add(pieceOptions[i]);
+        }
+        confirm.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e)
+            {
+                for(int i = 0; i < pieceOptions.length; i++)
+                {
+                    if(pieceOptions[i].isSelected())
+                    {
+                        pieceChose[0] = options[i];
+                        frame.dispose();
+                    }
+                }
+            }
+        });
+        JPanel window = new JPanel();
+        for(int i = 0; i < pieceOptions.length; i++)
+        {
+            pieceOptions[i] = new JRadioButtonMenuItem(options[i]);
+            window.add(pieceOptions[i]);
+        }
+        window.add(confirm);
+        frame.add(window);
+        frame.setVisible(true);
+        frame.setSize(getWidth()/2, getHeight()/2);
+        frame.setResizable(false);
+        frame.setLocationRelativeTo(this);
+        
+        return pieceChose[0];
+    }
 }

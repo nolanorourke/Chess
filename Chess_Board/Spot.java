@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.lang.String;
 
 import Chess_Pieces.*;
 
@@ -173,6 +174,22 @@ public class Spot extends JPanel
     public int returnPieceTeam() { return pieceOn == null ? 0 : pieceOn.getTeamNum(); }
     
     public void setPieceOn(Pieces p) { pieceOn = p; }
+
+    public void upgrade(String n)
+    {
+        //removePiece();
+        if(n.compareTo("Rook") == 0)
+            setPieceOn(new Rook(this));
+        else if(n.compareTo("Knight")==0)
+            setPieceOn(new Knight(this));
+        else if(n.compareTo("Bishop")==0)
+            setPieceOn(new Bishop(this));
+        else if(n.compareTo("Queen")==0)
+            setPieceOn(new Queen(this));
+        else
+            setPieceOn(new Queen(this));
+
+    }
 
 
 }
