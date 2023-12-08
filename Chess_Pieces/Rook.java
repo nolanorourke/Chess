@@ -15,10 +15,11 @@ public class Rook extends Pieces
     {
         super("Rook", start);
     }
-    public Rook(int teamnum)
+    public Rook(int team, Spot replace)
     {
-        super("Rook", teamnum);
+        super("Rook", team, replace);        
     }
+
     public Vector < Integer > getPossibleMoves() //calls check PossibleMove, glows if possible to move, glows other color if can capture piece
     {
         Vector < Integer > moves = new Vector< Integer >();

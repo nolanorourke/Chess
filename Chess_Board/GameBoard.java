@@ -18,22 +18,18 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JRadioButton;
 import javax.swing.border.LineBorder;
 
-import Chess_Pieces.Queen;
+import Chess_Pieces.*;
 
-public class GameBoard extends JPanel
+public class GameBoard extends JPanel 
 {
     // Might not need this depending on how we implment code
     private Spot grid[][];
     private static Spot prevSpot, curSpot;
     private int turn = 1; // Whose turn it is
     private String moveinterp;
-
-    private JOptionPane empassantPopup;
-    private JRadioButtonMenuItem pieceOptions[];
-    private JButton confirm;
 
 
 
@@ -98,34 +94,53 @@ public class GameBoard extends JPanel
                             middle = " x ";
                         curSpot.placePiece(prevSpot);
                         moveinterp = prevSpot.toString() + middle + curSpot.toString();
-                        if(curSpot.getPieceOn().getName() == "Pawn")
-                        {
-                            if(curSpot.getPieceOn().getTeamNum() == 1)
-                            {
-                                if(curSpot.getrow() == 'A')
-                                {
-                                    String temp = showChoices(curSpot);
-                                    moveinterp += "= " + temp.charAt(0);
-                                    curSpot.upgrade(temp);
+                        // if(curSpot.getPieceOn().getName() == "Pawn")
+                        // {
+                        //     if(curSpot.getPieceOn().getTeamNum() == 1)
+                        //     {
+                        //         if(curSpot.getrow() == 'A')
+                        //         {
+                        //             String temp = showChoices(curSpot);
+                        //             moveinterp += "= " + temp.charAt(0);
+                        //             curSpot.upgrade(temp);
                                     
-                                }
-                            }
-                            else if(curSpot.getPieceOn().getTeamNum() == 2)
-                            {
-                                if(curSpot.getrow() == 'G')
-                                {
-                                    String temp = showChoices(curSpot);
-                                    moveinterp += "= " + temp.charAt(0);
-                                    curSpot.upgrade(temp);                                }
-                            }
-                        }
+                        //         }
+                        //     }
+                        //     else if(curSpot.getPieceOn().getTeamNum() == 2)
+                        //     {
+                        //         if(curSpot.getrow() == 'G')
+                        //         {
+                        //             String temp = showChoices(curSpot);
+                        //             moveinterp += "= " + temp.charAt(0);
+                        //             curSpot.upgrade(temp);                                }
+                        //     }
+                        // }
                         turn *= -1;
-                        moveinterp = curSpot.toString() + middle + prevSpot.toString();
+                        //moveinterp = curSpot.toString() + middle + prevSpot.toString();
 
                         if (curSpot.getPieceOn().getName() == "Pawn" && ((curSpot.returnPieceTeam() == 1 && curSpot.getrow() == 'A') || curSpot.returnPieceTeam() == -1 && curSpot.getrow() == 'H'))
                         {
                             System.out.println("PAWN CHANGE");
-                            curSpot.replacePiece(new Queen(curSpot.returnPieceTeam(), curSpot));
+                            
+                            String temp = showChoices(curSpot);
+                            if(temp.compareTo("Rook") == 0)
+                            {
+                                curSpot.replacePiece(new Rook(curSpot.returnPieceTeam(), curSpot));
+                            }
+                            else if(temp.compareTo("Knight") == 0)
+                            {
+                                curSpot.replacePiece(new Knight(curSpot.returnPieceTeam(), curSpot));
+                            }
+                            else if(temp.compareTo("Bishop") == 0)
+                            {
+                                curSpot.replacePiece(new Bishop(curSpot.returnPieceTeam(), curSpot));
+                            }
+                            else if(temp.compareTo("Queen") == 0)
+                            {
+                                curSpot.replacePiece(new Queen(curSpot.returnPieceTeam(), curSpot));
+                            }
+                            else 
+                                curSpot.replacePiece(new Queen(curSpot.returnPieceTeam(), curSpot));
                         }
 
                     }
@@ -216,45 +231,50 @@ public class GameBoard extends JPanel
     {
         JFrame frame = new JFrame();
         frame.setAlwaysOnTop(true);
-
-        confirm = new JButton("Confirm");
-        String options[] = {"Queen", "Bishop", "Knight", "Rook"};
-        final String[] pieceChose = {" "};
-        //empassantPopup = new JOptionPane();
-        pieceOptions = new JRadioButtonMenuItem[options.length];
-        ButtonGroup group = new ButtonGroup();
-
-        for(int i = 0; i < pieceOptions.length; i++)
-        {
-            pieceOptions[i] = new JRadioButtonMenuItem(options[i]);
-            group.add(pieceOptions[i]);
-        }
-        confirm.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e)
-            {
-                for(int i = 0; i < pieceOptions.length; i++)
-                {
-                    if(pieceOptions[i].isSelected())
-                    {
-                        pieceChose[0] = options[i];
-                        frame.dispose();
-                    }
-                }
-            }
-        });
-        JPanel window = new JPanel();
-        for(int i = 0; i < pieceOptions.length; i++)
-        {
-            pieceOptions[i] = new JRadioButtonMenuItem(options[i]);
-            window.add(pieceOptions[i]);
-        }
-        window.add(confirm);
-        frame.add(window);
-        frame.setVisible(true);
-        frame.setSize(getWidth()/2, getHeight()/2);
-        frame.setResizable(false);
-        frame.setLocationRelativeTo(this);
         
-        return pieceChose[0];
+        String options[] = {"Queen", "Bishop", "Knight", "Rook"};
+        final String pieceChose;
+
+        Object selected = JOptionPane.showInputDialog(null, "What would you like to upgrade to?", "Empassant", JOptionPane.DEFAULT_OPTION, null, options, "Queen");
+
+        if(selected == null)
+            return "Queen";
+        return selected.toString();
+
+    //     //empassantPopup = new JOptionPane();
+    //     pieceOptions = new JRadioButton[options.length];
+    //     ButtonGroup group = new ButtonGroup();
+
+    //     for(int i = 0; i < pieceOptions.length; i++)
+    //     {
+    //         pieceOptions[i] = new JRadioButton(options[i]);
+    //     }
+    //     confirm.addActionListener(new ActionListener(){
+    //         public void actionPerformed(ActionEvent e)
+    //         {
+    //             for(int i = 0; i < pieceOptions.length; i++)
+    //             {
+    //                 if(pieceOptions[i].isSelected())
+    //                 {
+    //                     temp = options[i];
+    //                     frame.dispose();
+    //                 }
+    //             }
+    //         }
+    //     });
+    //     JPanel window = new JPanel();
+    //     for(int i = 0; i < pieceOptions.length; i++)
+    //     {
+    //         pieceOptions[i] = new JRadioButton(options[i]);
+    //         group.add(pieceOptions[i]);
+    //         window.add(pieceOptions[i]);
+    //     }
+    //     window.add(confirm);
+    //     frame.add(window);
+    //     frame.setVisible(true);
+    //     frame.setSize(getWidth()/2, getHeight()/2);
+    //     frame.setResizable(false);
+    //     frame.setLocationRelativeTo(this);
+    //     return temp;
     }
 }

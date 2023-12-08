@@ -189,16 +189,15 @@ public class Spot extends JPanel
     {
         //removePiece();
         if(n.compareTo("Rook") == 0)
-            setPieceOn(new Rook(this));
+            replacePiece(new Rook(this));
         else if(n.compareTo("Knight")==0)
-            setPieceOn(new Knight(this));
+            replacePiece(new Knight(this));
         else if(n.compareTo("Bishop")==0)
-            setPieceOn(new Bishop(this));
+            replacePiece(new Bishop(this));
         else if(n.compareTo("Queen")==0)
-            setPieceOn(new Queen(this));
+            pieceOn = new Queen(this);
         else
-            setPieceOn(new Queen(this));
-
+            pieceOn = new Queen(this);
     }
 
 

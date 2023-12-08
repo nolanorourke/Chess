@@ -15,9 +15,9 @@ public class Knight extends Pieces
     {
         super("Knight", start);
     }
-    public Knight(int teamnum)
+    public Knight(int team, Spot replace)
     {
-        super("Knight", teamnum);
+        super("Knight", team, replace);        
     }
     
 

@@ -17,9 +17,9 @@ public class King extends Pieces
     {
         super("King", start);
     }
-    public King(int teamnum)
+    public King(int team, Spot replace)
     {
-        super("King", teamnum);
+        super("King", team, replace);        
     }
 
     public Vector < Integer > getPossibleMoves() //calls check PossibleMove, glows if possible to move, glows other color if can capture piece
