@@ -47,11 +47,13 @@ public class Pawn extends Pieces
         }
 
         for (int count = 0; count < moves.size(); count += 2)
-            if (moves.elementAt(count) <= 0 || moves.elementAt(count) > 8 || moves.elementAt(count + 1) <= 0 || moves.elementAt(count + 1) > 8)
+        {
+            if (moves.elementAt(count) <= -1 || moves.elementAt(count) >= 9 || moves.elementAt(count + 1) <= -1 || moves.elementAt(count + 1) >= 9)
             {
                 moves.removeElementAt(count);
                 moves.removeElementAt(count);
             }
+        }
 
 
         return moves;

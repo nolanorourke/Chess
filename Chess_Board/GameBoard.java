@@ -21,10 +21,13 @@ import javax.swing.JPopupMenu;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.border.LineBorder;
 
-public class GameBoard extends JPanel {
+import Chess_Pieces.Queen;
+
+public class GameBoard extends JPanel
+{
     // Might not need this depending on how we implment code
     private Spot grid[][];
-    private static Spot prevSpot, curSpot, temp;
+    private static Spot prevSpot, curSpot;
     private int turn = 1; // Whose turn it is
     private String moveinterp;
 
@@ -32,7 +35,10 @@ public class GameBoard extends JPanel {
     private JRadioButtonMenuItem pieceOptions[];
     private JButton confirm;
 
-    public GameBoard() {
+
+
+    public GameBoard()
+    {
         setLayout(new GridLayout(8, 8));
         grid = new Spot[8][8];
 
@@ -45,34 +51,28 @@ public class GameBoard extends JPanel {
     }
 
     // Gotta figure out how to just make it a square, probably gonna ask Myers
-    public void paintComponent(Graphics g) {
+    public void paintComponent(Graphics g)
+    {
         super.paintComponent(g);
 
     }
 
     private class MouseHandler implements MouseListener {
-        public void mouseExited(MouseEvent e) {
-            /* System.out.println("Moved out of spot"); */ }
+        public void mouseExited(MouseEvent e) { /* System.out.println("Moved out of spot"); */ }
 
-        public void mouseEntered(MouseEvent e) {
-            /* System.out.println("Moved into spot"); */ }
+        public void mouseEntered(MouseEvent e) { /* System.out.println("Moved into spot"); */ }
 
         // Moves the chess pieces around the board, haven't added the game rules to
         // restrict pieces (Nick)
-        public void mouseClicked(MouseEvent e) {
-            // prevSpot = (Spot) getComponentAt(getMousePosition());
-            // if (!prevSpot.isAvailable() && prevSpot.returnPieceTeam() == turn)
-            //     possibleMoves();
-            // if(prevSpot.getrow() != temp.getrow() && temp.getColumn() != temp.getColumn())
-            // {
-            //     temp = (Spot)getComponentAt(getMousePosition());
-            //     //clearHighLights();
-            // }
-
+        public void mouseClicked(MouseEvent e)
+        { 
+            // Having logic issues in clicked as pressed and released are also called
+            System.out.println("Clicked");
         }
 
         // Dragging events
-        public void mousePressed(MouseEvent e) {
+        public void mousePressed(MouseEvent e)
+        {
             prevSpot = (Spot) getComponentAt(getMousePosition());
             System.out.println("Pressed at " + prevSpot.getrow() + prevSpot.getColumn());
             if (!prevSpot.isAvailable() && prevSpot.returnPieceTeam() == turn)
@@ -90,7 +90,7 @@ public class GameBoard extends JPanel {
                 if (!prevSpot.isAvailable()) {
                     System.out.println(((LineBorder) curSpot.getBorder()).getLineColor().equals(new Color(52, 219, 41)));
                     if (curSpot != prevSpot && ((LineBorder) curSpot.getBorder()).getLineColor().equals(new Color(52, 219, 41))) 
-                            {
+                    {
                         String middle = " ";
                         if (curSpot.isAvailable())
                             middle = " - ";
@@ -120,7 +120,14 @@ public class GameBoard extends JPanel {
                             }
                         }
                         turn *= -1;
-                        //moveinterp = prevSpot.toString() + middle + curSpot.toString();
+                        moveinterp = curSpot.toString() + middle + prevSpot.toString();
+
+                        if (curSpot.getPieceOn().getName() == "Pawn" && ((curSpot.returnPieceTeam() == 1 && curSpot.getrow() == 'A') || curSpot.returnPieceTeam() == -1 && curSpot.getrow() == 'H'))
+                        {
+                            System.out.println("PAWN CHANGE");
+                            curSpot.replacePiece(new Queen(curSpot.returnPieceTeam(), curSpot));
+                        }
+
                     }
                     clearHighlights();
                 }
@@ -133,7 +140,8 @@ public class GameBoard extends JPanel {
         }
     }
 
-    public void possibleMoves() {
+    public void possibleMoves()
+    {
         // Current spot
         grid[prevSpot.getrowNumber() - 1][prevSpot.getColumn() - 1]
                 .setBorder(BorderFactory.createLineBorder(Color.yellow));
@@ -143,6 +151,7 @@ public class GameBoard extends JPanel {
         // Used to see if spots are allowed if it's path is blocked by a piece
         boolean Continuous = true;
         for (int count = 0; count < moveableSpots.size(); count += 2) {
+            System.out.println((moveableSpots.elementAt(count) - 1) + " " + (moveableSpots.elementAt(count + 1)- 1));
             boolean availableSpace = grid[moveableSpots.elementAt(count) - 1][moveableSpots.elementAt(count + 1)- 1].isAvailable();
 
             // Knights don't get blocked
@@ -153,11 +162,13 @@ public class GameBoard extends JPanel {
             // (Pawn special move)
             if (prevSpot.getPieceOn().getName() == "Pawn") 
             {
-                if (moveableSpots.elementAt(count + 1) == prevSpot.getColumn() && availableSpace) 
+                if (moveableSpots.elementAt(count + 1) == prevSpot.getColumn() && availableSpace && Continuous) 
                 {
                     System.out.println((moveableSpots.elementAt(count) - 1) + " , " + (moveableSpots.elementAt(count + 1) - 1));
                     grid[moveableSpots.elementAt(count) - 1][moveableSpots.elementAt(count + 1) - 1].setBorder(BorderFactory.createLineBorder(new Color(52, 219, 41)));
-                } 
+                }
+                else if (moveableSpots.elementAt(count + 1) == prevSpot.getColumn() && !availableSpace)
+                    Continuous = false;
                 else if (!availableSpace && moveableSpots.elementAt(count + 1) != prevSpot.getColumn()&& grid[moveableSpots.elementAt(count) - 1][moveableSpots.elementAt(count + 1) - 1].returnPieceTeam() != prevSpot.returnPieceTeam()) 
                 {
                     grid[moveableSpots.elementAt(count) - 1][moveableSpots.elementAt(count + 1) - 1].setBorder(BorderFactory.createLineBorder(new Color(52, 219, 41)));
@@ -185,7 +196,8 @@ public class GameBoard extends JPanel {
         }
     }
 
-    public void clearHighlights() {
+    public void clearHighlights()
+    {
         // resets the background color to its original color
         // needs to happen after they click off of a piece
         for (int i = 0; i < 8; i++)
@@ -193,9 +205,7 @@ public class GameBoard extends JPanel {
                 grid[i][j].setBorder(BorderFactory.createLineBorder(Color.black));
     }
 
-    public int getTurn() {
-        return turn == 1 ? 1 : 2;
-    }
+    public int getTurn() { return turn == 1 ? 1 : 2; }
 
     public String getMoveInterp() {
         return moveinterp == null ? "" : moveinterp;
