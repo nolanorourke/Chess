@@ -5,7 +5,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
+import java.lang.String;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
@@ -165,9 +165,13 @@ public class Spot extends JPanel
         setBackground(spaceColor);
     }
 
+    public String toString() { return (String.valueOf(getrow()) + String.valueOf(getColumn())); }
+
     //doing this for the gameboard class so we can check which piece is on which space
     public Pieces getPieceOn() { return pieceOn; }
+
     public int returnPieceTeam() { return pieceOn == null ? 0 : pieceOn.getTeamNum(); }
+    
     public void setPieceOn(Pieces p) { pieceOn = p; }
 
 

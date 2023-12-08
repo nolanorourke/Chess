@@ -12,8 +12,8 @@ default:
 	$(JC) $(JFLAGS) Chess.java
 
 run:
-	rm -rf *.class && $(JC) $(JFLAGS) Chess.java && $(J) Chess
+	find . -type f -name "*.class" -exec rm {} \; && $(JC) $(JFLAGS) Chess.java && $(J) Chess
 jar:
 	$(JR) ChessProject.jar *
 clean:
-	rm -rf *.class
+	find . -type f -name "*.class" -exec rm {} \;
