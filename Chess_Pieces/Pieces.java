@@ -45,6 +45,20 @@ public abstract class Pieces implements Serializable {
         // pieceImage.setImage(pieceImage.getImage().getScaledInstance(startingSpot.getWidth(), startingSpot.getHeight(), Image.SCALE_SMOOTH));
     }
 
+    public Pieces(String pieceName, int team, Spot replace)
+    {
+        name = pieceName;
+        startingSpot = null;
+        currentSpot = replace;
+        String temp;
+        if ((teamnum = team) == 1)
+            temp = name + "Piece" + teamnum + ".png";
+        else
+            temp = name + "Piece" + "2" + ".png";
+        
+            pieceImage = new ImageIcon(getClass().getResource(temp));
+    }
+
     public abstract Vector < Integer > getPossibleMoves();     // Better to make this return possible moves it COULD do, allows for Gameboard to handle the game
 
     public abstract boolean checkPossibleMove(Spot s);

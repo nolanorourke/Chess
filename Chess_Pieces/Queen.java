@@ -17,6 +17,11 @@ public class Queen extends Pieces
         super("Queen", start);
     }
 
+    public Queen(int team, Spot replace)
+    {
+        super("Queen", team, replace);        
+    }
+
  
     public Vector < Integer > getPossibleMoves() //calls check PossibleMove, glows if possible to move, glows other color if can capture piece
     {
