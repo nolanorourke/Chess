@@ -368,18 +368,17 @@ public class ChessJPanel extends JPanel {
         centerPanel = new CenterPanel();
         topPanel = new TopPanel();
         add(centerPanel);
-        eastPanel.turnNum = 1;
+
+        eastPanel.setTurnNum(eastPanel.addMoveToTable("RESET", 1, 0));
+        eastPanel.setTurnNum(eastPanel.addMoveToTable("RESET", 2, 0));
+        eastPanel.setTurnNum(1);
         update(getGraphics());
         
     }
     public void startNewGame()
     {
-        remove(currentBoard);
-        remove(eastPanel);
-        currentBoard = new GameBoard();
-        eastPanel = new EastPanel();
-        add(currentBoard);
-        add(eastPanel);
+        resetBoard();
+        eastPanel.clearMoveHistory();
         eastPanel.turnNum = 1;
         update(getGraphics());
     }
