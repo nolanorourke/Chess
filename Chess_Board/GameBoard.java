@@ -60,46 +60,29 @@ public class GameBoard extends JPanel {
                 possibleMoves();
         }
 
-        public void mouseReleased(MouseEvent e) {
-            curSpot = (Spot) getComponentAt(getMousePosition());
-            System.out.println("Released at " + curSpot.getrow() + curSpot.getColumn()); // DEBUG
-
-            // Used to place piece or deselect it
-            if (!prevSpot.isAvailable()) {
-                System.out.println(((LineBorder) curSpot.getBorder()).getLineColor().equals(new Color(52, 219, 41)));
-                if (curSpot != prevSpot && ((LineBorder) curSpot.getBorder()).getLineColor().equals(new Color(52, 219, 41))) 
-                        {
-                    String middle = " ";
-                    if (curSpot.isAvailable())
-                        middle = " - ";
-                    else if (curSpot.getPieceOn().getTeamNum() != prevSpot.getPieceOn().getTeamNum())
-                        middle = " x ";
-                    curSpot.placePiece(prevSpot);
-                    turn *= -1;
-                    moveinterp = curSpot.toString() + middle + prevSpot.toString();
-                }
-                clearHighlights();
-            }
-            prevSpot = curSpot = null;
         public void mouseReleased(MouseEvent e)
         {
             try
             {
                 curSpot = (Spot) getComponentAt(getMousePosition());
-                System.out.println("Released at " + curSpot.getrow() + curSpot.getColumn());            // DEBUG
-                
+                System.out.println("Released at " + curSpot.getrow() + curSpot.getColumn()); // DEBUG
+
                 // Used to place piece or deselect it
-                if (!prevSpot.isAvailable())
-                {
+                if (!prevSpot.isAvailable()) {
                     System.out.println(((LineBorder) curSpot.getBorder()).getLineColor().equals(new Color(52, 219, 41)));
-                    if (curSpot != prevSpot && ((LineBorder) curSpot.getBorder()).getLineColor().equals(new Color(52, 219, 41)))
-                    {
+                    if (curSpot != prevSpot && ((LineBorder) curSpot.getBorder()).getLineColor().equals(new Color(52, 219, 41))) 
+                            {
+                        String middle = " ";
+                        if (curSpot.isAvailable())
+                            middle = " - ";
+                        else if (curSpot.getPieceOn().getTeamNum() != prevSpot.getPieceOn().getTeamNum())
+                            middle = " x ";
                         curSpot.placePiece(prevSpot);
                         turn *= -1;
+                        moveinterp = curSpot.toString() + middle + prevSpot.toString();
                     }
                     clearHighlights();
                 }
-
                 prevSpot = curSpot = null;
             }
             catch (Exception except)
