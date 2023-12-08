@@ -42,6 +42,7 @@ public class ChessJPanel extends JPanel {
     private CenterPanel centerPanel;
     private EastPanel eastPanel;
     private BottomPanel bottomPanel;
+    private TopPanel topPanel;
 
     ChessJPanel() {
         // Sets JPanel
@@ -85,7 +86,7 @@ public class ChessJPanel extends JPanel {
 
             if (currentString != currentBoard.getMoveInterp()) {
                 currentString = currentBoard.getMoveInterp();
-                eastPanel.addMoveToTable(currentString, teamnum, eastPanel.getTurnNum());
+                eastPanel.setTurnNum(eastPanel.addMoveToTable(currentString, teamnum, eastPanel.getTurnNum()));
                 if (teamnum == 1)
                     ++teamnum;
                 else
@@ -103,7 +104,8 @@ public class ChessJPanel extends JPanel {
         CenterPanel() {
             setLayout(new BorderLayout());
             currentBoard = new GameBoard();
-            add(new TopPanel(), BorderLayout.NORTH);
+            topPanel = new TopPanel();
+            add(topPanel, BorderLayout.NORTH);
             add(currentBoard);
         }
 
@@ -159,15 +161,17 @@ public class ChessJPanel extends JPanel {
                     moveHistoryTable.getColumnModel().getColumn(2).getWidth(), getHeight()));
         }
 
-        public void addMoveToTable(String move, int teamnum, int turn) {
+        public int addMoveToTable(String move, int teamnum, int turn) {
             if (teamnum == 1) {
                 // since team one goes first, it will create a new row
                 moveHistory.addRow(new Object[] { turn, null, null });
                 moveHistory.setValueAt(move, moveHistory.getRowCount() - 1, 1);
+                return turn+1;
             } else if (teamnum == 2) {
 
                 moveHistory.setValueAt(move, moveHistory.getRowCount() - 1, 2);
             }
+            return turn;
             // adds a rows, the first thing is the move count, second is team one move,
             // third is team two move
         }
@@ -182,6 +186,10 @@ public class ChessJPanel extends JPanel {
         public int getTurnNum()
         {
             return turnNum;
+        }
+        public void setTurnNum(int n)
+        {
+            turnNum = n;
         }
     }
 
@@ -309,9 +317,9 @@ public class ChessJPanel extends JPanel {
             }
             else if(e.getSource() == resetLabel)
             {
-                resetBoard();
                 resetLabel.setIcon(reset2);
                 resetLabel.setIcon(reset1);
+                resetBoard();
             }
             else if(e.getSource() == howToPlayLabel)
             {
@@ -354,8 +362,12 @@ public class ChessJPanel extends JPanel {
     public void resetBoard()
     {
         remove(currentBoard);
+        remove(centerPanel);
+        remove(topPanel);
         currentBoard = new GameBoard();
-        add(currentBoard);
+        centerPanel = new CenterPanel();
+        topPanel = new TopPanel();
+        add(centerPanel);
         eastPanel.turnNum = 1;
         update(getGraphics());
         
