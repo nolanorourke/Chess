@@ -15,10 +15,10 @@ default:
 run:
 	find . -type f -name "*.class" -exec rm {} \; && $(JC) $(JFLAGS) Chess.java && $(J) Chess
 jar:
-	$(JR) ChessProject.jar Manifest.txt *
+	$(JR) hwx.jar Manifest.txt *
 
 jarrun:
-	$(RJ) ChessProject.jar
+	$(RJ) hwx.jar
 
 clean:
 	find . -type f -name "*.class" -exec rm {} \;
