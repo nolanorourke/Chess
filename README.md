@@ -22,7 +22,8 @@ We added an instrction link attached to a button on the bottom right to give the
 # Chess Board
 # Move History Table
 # Menu
-# 
+
+
 
 
 

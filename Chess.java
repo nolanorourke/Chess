@@ -3,7 +3,13 @@
 import java.awt.Dimension;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JMenuBar;
 public class Chess
 {
     public static void main (String args[])
@@ -19,6 +25,26 @@ public class Chess
 
         myFrame.add(new ChessJPanel());
         myFrame.setVisible(true);
+
+
+        JMenu gameMenu = new JMenu("Game");
+        gameMenu.setMnemonic('g');
+        JMenuItem newg = new JMenuItem("Start New Game");
+        newg.setMnemonic('n');
+        JMenuItem resg = new JMenuItem("Reset Current Game");
+        resg.setMnemonic('r');
+        gameMenu.add(newg);
+        gameMenu.add(resg);
+        
+        JMenu helpMenu = new JMenu("Help");
+        helpMenu.setMnemonic('h');
+        JMenuItem instruct = new JMenuItem("Open Instructions Page");
+        helpMenu.add(instruct);
+
+        JMenuBar gameBar = new JMenuBar();
+        myFrame.setJMenuBar(gameBar);
+        gameBar.add(gameMenu);
+        gameBar.add(helpMenu);
         //if it doesnt show up right on startup, make a chesspanel variable, add it in the myframe.add, and then set it to visible right under this li
     }
 

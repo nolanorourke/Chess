@@ -49,6 +49,9 @@ public class ChessJPanel extends JPanel {
     private Desktop desktop = Desktop.getDesktop();
 
     ChessJPanel() {
+
+
+
         // Sets JPanel
         setLayout(new BorderLayout());
 
