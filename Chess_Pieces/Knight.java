@@ -49,9 +49,11 @@ public class Knight extends Pieces
         moves.add(currentSpot.getrowNumber() + (1 * teamnum));
         moves.add(currentSpot.getColumn() - (2 * teamnum));
 
-        for (Integer integer : moves)
-            System.out.print(integer + " ");
-        System.out.println();
+        // DEBUGGING
+        // for (Integer integer : moves)
+        //     System.out.print(integer + " ");
+        // System.out.println();
+    
         for (int count = 0; count < moves.size(); count += 2)
             if (moves.elementAt(count) <= 0 || moves.elementAt(count) > 8 || moves.elementAt(count + 1) <= 0 || moves.elementAt(count + 1) > 8)
             {

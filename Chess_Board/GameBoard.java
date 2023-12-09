@@ -70,7 +70,7 @@ public class GameBoard extends JPanel
         public void mousePressed(MouseEvent e)
         {
             prevSpot = (Spot) getComponentAt(getMousePosition());
-            System.out.println("Pressed at " + prevSpot.getrow() + prevSpot.getColumn());
+            // System.out.println("Pressed at " + prevSpot.getrow() + prevSpot.getColumn());    DEBUGGING
             if (!prevSpot.isAvailable() && prevSpot.returnPieceTeam() == turn)
                 highlightMoveableSpots(possibleMoves());
         }
@@ -80,7 +80,7 @@ public class GameBoard extends JPanel
             try
             {
                 curSpot = (Spot) getComponentAt(getMousePosition());
-                System.out.println("Released at " + curSpot.getrow() + curSpot.getColumn()); // DEBUG
+                // System.out.println("Released at " + curSpot.getrow() + curSpot.getColumn()); // DEBUG
 
                 // Used to place piece or deselect it
                 if (!prevSpot.isAvailable())
@@ -123,7 +123,7 @@ public class GameBoard extends JPanel
 
                         if (curSpot.getPieceOn().getName() == "Pawn" && ((curSpot.returnPieceTeam() == 1 && curSpot.getrow() == 'A') || curSpot.returnPieceTeam() == -1 && curSpot.getrow() == 'H'))
                         {
-                            System.out.println("PAWN CHANGE");
+                            // System.outout.println("PAWN CHANGE");
                             
                             String temp = showChoices(curSpot);
                             moveinterp += " = " + temp.charAt(0);
@@ -178,7 +178,7 @@ public class GameBoard extends JPanel
         validmoves = new Vector<Integer>();
         
         boolean Continuous = true;
-        System.out.println("Beginning of checkForCheck");
+        // System.outout.println("Beginning of checkForCheck");
         for (int count = 0; count < moveSpots.size(); count += 2)
         {
             boolean availableSpace = grid[moveSpots.elementAt(count) - 1][moveSpots.elementAt(count + 1)- 1].isAvailable();
@@ -219,7 +219,7 @@ public class GameBoard extends JPanel
                 // For when the spot behind it is still in the path of the king
                 if (grid[moveSpots.elementAt(count) - 1][moveSpots.elementAt(count + 1) - 1].getPieceOn().getName() == "King")
                 {
-                    System.out.println("Added back king space");
+                    // System.outout.println("Added back king space");
                     validmoves.add(moveSpots.elementAt(count + 2) - 1);
                     validmoves.add(moveSpots.elementAt(count + 3) - 1);
                 }
@@ -240,8 +240,8 @@ public class GameBoard extends JPanel
                 Continuous = false;
         }
 
-        System.out.println("CHECKING FOR CHECK...");
-        System.out.println(validmoves.size()/2);
+        // System.outout.println("CHECKING FOR CHECK...");
+        // System.outout.println(validmoves.size()/2);
 
         for (int count = 0; count < validmoves.size() && Check == false; count += 2)
         {
@@ -347,14 +347,14 @@ public class GameBoard extends JPanel
                 grid[moves.elementAt(count)][moves.elementAt(count + 1)].setBorder(BorderFactory.createLineBorder(new Color(52, 219, 41)));
         else if (!Check && prevSpot.getPieceOn().getName() == "King")
         {
-            System.out.println("CHECKING FOR ILLEGAL MOVES");
+            // System.outout.println("CHECKING FOR ILLEGAL MOVES");
             for (int count = 0; count < moves.size(); count += 2)
                 if (moveAbleSpot(grid[moves.elementAt(count)][moves.elementAt(count + 1)]))
                     grid[moves.elementAt(count)][moves.elementAt(count + 1)].setBorder(BorderFactory.createLineBorder(new Color(52, 219, 41)));
         }
         else if (Check && prevSpot.getPieceOn().getName() == "King")
         {
-            System.out.println("KING PLUS CHECK");
+            // System.outout.println("KING PLUS CHECK");
             for (int count = 0; count < moves.size(); count += 2)
             {
                 boolean inPath = false, illegalMove = false;
@@ -365,7 +365,7 @@ public class GameBoard extends JPanel
                     else if (!moveAbleSpot(grid[moves.elementAt(count)][moves.elementAt(count + 1)]))
                         illegalMove = true;
 
-                System.out.println(inPath + " " + illegalMove);
+                // System.outout.println(inPath + " " + illegalMove);
                 if (!inPath && !illegalMove)
                         grid[moves.elementAt(count)][moves.elementAt(count + 1)].setBorder(BorderFactory.createLineBorder(new Color(52, 219, 41)));
             }
@@ -374,8 +374,8 @@ public class GameBoard extends JPanel
             for (int count = 0; count < moves.size(); count += 2)
                 for (int count2 = 0; count2 < checkGrid.size(); count2 += 2)
                 {
-                    System.out.println(moves.elementAt(count));
-                    System.out.println(moves.elementAt(count + 1));
+                    // System.outout.println(moves.elementAt(count));
+                    // System.outout.println(moves.elementAt(count + 1));
                     if (checkGrid.elementAt(count2) == moves.elementAt(count) && checkGrid.elementAt(count2 + 1) == moves.elementAt(count + 1))
                     {
                         grid[moves.elementAt(count)][moves.elementAt(count + 1)].setBorder(BorderFactory.createLineBorder(new Color(52, 219, 41)));
@@ -401,7 +401,7 @@ public class GameBoard extends JPanel
                         if (movingInto.getrowNumber() - 1 == moves.elementAt(count) && movingInto.getColumn() - 1 == moves.elementAt(count + 1))
                         {
                             prevSpot = temp;
-                            System.out.println("MOVEABLESPOT IS FALSE");
+                            // System.outout.println("MOVEABLESPOT IS FALSE");
                             if(temp.getName() == "King");
                                 checkmate();
                             return false;

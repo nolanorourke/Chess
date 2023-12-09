@@ -31,7 +31,7 @@ public class Pawn extends Pieces
     {
         Vector < Integer > moves = new Vector< Integer >();             // Row, Column
         
-        System.out.println("At: " + (currentSpot.getrowNumber()) + "," + (currentSpot.getColumn()));
+        // System.out.println("At: " + (currentSpot.getrowNumber()) + "," + (currentSpot.getColumn()));
         moves.add(currentSpot.getrowNumber() - (1 * teamnum));
         moves.add(currentSpot.getColumn());
         moves.add(currentSpot.getrowNumber() - (1 * teamnum));
@@ -41,7 +41,7 @@ public class Pawn extends Pieces
 
         if (currentSpot == startingSpot)
         {
-            System.out.println("Double jump would be at " + (currentSpot.getrowNumber() - (2 * teamnum)) + ", " + currentSpot.getColumn());
+            // System.out.println("Double jump would be at " + (currentSpot.getrowNumber() - (2 * teamnum)) + ", " + currentSpot.getColumn());
             moves.add(currentSpot.getrowNumber() - (2 * teamnum));
             moves.add(currentSpot.getColumn());
         }
