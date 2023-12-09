@@ -20,6 +20,8 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JRadioButton;
 import javax.swing.border.LineBorder;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 import Chess_Pieces.*;
 
@@ -31,6 +33,8 @@ public class GameBoard extends JPanel
     private int turn = 1; // Whose turn it is
     private String moveinterp;
     private boolean Check = false;
+    private boolean checkmate = false;
+    private boolean stalemate = false;
     private Pieces pieceChecking;
     private Vector<Integer> checkGrid = new Vector<Integer>();
 
@@ -148,6 +152,10 @@ public class GameBoard extends JPanel
                         {
                             curSpot.getPieceOn().setCheckingPiece(true);
                             pieceChecking = curSpot.getPieceOn();
+                            middle = " + ";
+                            Vector<Integer> temp = possibleMoves();
+                            if(temp.size() == 0)
+                                checkmate();
                         }
                     }
                     clearHighlights();
@@ -250,6 +258,7 @@ public class GameBoard extends JPanel
                     checkGrid.add(validmoves.elementAt(count + 2));
                     checkGrid.add(validmoves.elementAt(count + 3));
                 }
+                
             }
         }
     }
@@ -258,7 +267,6 @@ public class GameBoard extends JPanel
 
     public Vector<Integer> possibleMoves()
     {
-
         // All possible moves piece could do
         Vector<Integer> moveableSpots = prevSpot.getPieceOn().getPossibleMoves(),
                         validMoves = new Vector<Integer>();
@@ -385,6 +393,8 @@ public class GameBoard extends JPanel
                         {
                             prevSpot = temp;
                             System.out.println("MOVEABLESPOT IS FALSE");
+                            if(temp.getName() == "King");
+                                checkmate();
                             return false;
                         }
                     }
@@ -418,46 +428,22 @@ public class GameBoard extends JPanel
         String options[] = {"Queen", "Bishop", "Knight", "Rook"};
         final String pieceChose;
 
-        Object selected = JOptionPane.showInputDialog(null, "What would you like to upgrade to?", "Empassant", JOptionPane.DEFAULT_OPTION, null, options, "Queen");
+        Object selected = JOptionPane.showInputDialog(frame, "What would you like to upgrade to?", "Empassant", JOptionPane.DEFAULT_OPTION, null, options, "Queen");
 
         if(selected == null)
             return "Queen";
         return selected.toString();
-
-    //     //empassantPopup = new JOptionPane();
-    //     pieceOptions = new JRadioButton[options.length];
-    //     ButtonGroup group = new ButtonGroup();
-
-    //     for(int i = 0; i < pieceOptions.length; i++)
-    //     {
-    //         pieceOptions[i] = new JRadioButton(options[i]);
-    //     }
-    //     confirm.addActionListener(new ActionListener(){
-    //         public void actionPerformed(ActionEvent e)
-    //         {
-    //             for(int i = 0; i < pieceOptions.length; i++)
-    //             {
-    //                 if(pieceOptions[i].isSelected())
-    //                 {
-    //                     temp = options[i];
-    //                     frame.dispose();
-    //                 }
-    //             }
-    //         }
-    //     });
-    //     JPanel window = new JPanel();
-    //     for(int i = 0; i < pieceOptions.length; i++)
-    //     {
-    //         pieceOptions[i] = new JRadioButton(options[i]);
-    //         group.add(pieceOptions[i]);
-    //         window.add(pieceOptions[i]);
-    //     }
-    //     window.add(confirm);
-    //     frame.add(window);
-    //     frame.setVisible(true);
-    //     frame.setSize(getWidth()/2, getHeight()/2);
-    //     frame.setResizable(false);
-    //     frame.setLocationRelativeTo(this);
-    //     return temp;
     }
+
+    public void checkmate()
+    {
+        JFrame frame = new JFrame();
+        frame.setAlwaysOnTop(true);
+        JOptionPane.showMessageDialog(frame, "Checkmate!");
+    }
+
+    public boolean getCheckMate() {return checkmate;}
+    public boolean getStaleMate() {return stalemate;}
+
+
 }

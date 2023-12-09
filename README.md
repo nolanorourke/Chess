@@ -38,7 +38,7 @@ The Third Option, similarly to new game, this clears the board, but lets the use
 # Chess Board
 The chess board allows for drag and drop of pieces, highlighting the different options 
 # Move History Table
-
+The Move History table keeps track of all the current moves 
 # Menu
 
 
