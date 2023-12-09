@@ -15,7 +15,10 @@ public class Bishop extends Pieces
     {
         super("Bishop", start);
     }
-    
+    public Bishop(int team, Spot replace)
+    {
+        super("Bishop", team, replace);        
+    }
 
     public Vector < Integer > getPossibleMoves() //calls check PossibleMove, glows if possible to move, glows other color if can capture piece
     {

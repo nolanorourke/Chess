@@ -19,6 +19,10 @@ public class Pawn extends Pieces
     {
         super("Pawn", start);
     }
+    public Pawn(int team, Spot replace)
+    {
+        super("Pawn", team, replace);        
+    }
 
     public ImageIcon returnImage() { return pawnImage; }
 

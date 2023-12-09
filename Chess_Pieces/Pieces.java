@@ -24,6 +24,17 @@ public abstract class Pieces implements Serializable {
         alive = true;
         teamnum = 0;
     }
+    public Pieces(String piece, int teamNum)
+    {
+        name = piece;
+        alive = true;
+        // Sets up the piece image
+        //set the call up so that we can either copy and paste or add it to parent constructor and it shoudl work for all of them
+        String temp = name + "Piece" + teamnum + ".png";
+        pieceImage = new ImageIcon(getClass().getResource(temp));
+        if (teamnum == 2)
+            teamnum = -1;
+    }
 
     // K is King, Q is Queen, B is Bishop, N is Knight, R is Rook, and P is Pawn
     public Pieces(String piece, Spot start) 

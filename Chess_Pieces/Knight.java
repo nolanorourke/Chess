@@ -15,6 +15,10 @@ public class Knight extends Pieces
     {
         super("Knight", start);
     }
+    public Knight(int team, Spot replace)
+    {
+        super("Knight", team, replace);        
+    }
     
 
     public Vector < Integer > getPossibleMoves() //calls check PossibleMove, glows if possible to move, glows other color if can capture piece
