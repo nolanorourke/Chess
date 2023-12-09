@@ -12,7 +12,7 @@ public abstract class Pieces implements Serializable {
     protected Spot startingSpot;        // I lied it's really useful
     protected Spot currentSpot;
     protected String name;
-    protected boolean alive;
+    protected boolean alive, checkingPiece = false;
     protected int teamnum;
     protected ImageIcon pieceImage;
 
@@ -85,6 +85,10 @@ public abstract class Pieces implements Serializable {
     public void setName(String s) { name = s; }
 
     public void setAlive(boolean b) { alive = b; }
+
+    public boolean getCheckingPiece () {return checkingPiece; }
+
+    public void setCheckingPiece (boolean c) { checkingPiece = c; }
 
     public int getTeamNum() { return teamnum; }
 

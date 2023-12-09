@@ -180,6 +180,8 @@ public class Spot extends JPanel
     //doing this for the gameboard class so we can check which piece is on which space
     public Pieces getPieceOn() { return pieceOn; }
 
+    public boolean hasPieceOn() {return pieceOn != null ? true : false; }
+
     public int returnPieceTeam() { return pieceOn == null ? 0 : pieceOn.getTeamNum(); }
     
     public void setPieceOn(Pieces p) { pieceOn = p; }
