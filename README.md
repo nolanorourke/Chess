@@ -40,6 +40,9 @@ The chess board allows for drag and drop of pieces, highlighting the different o
 # Move History Table
 The Move History table keeps track of all the current moves 
 # Menu
+The buttons in the menu interact with the user and offer the feeling and acknowledgement of being pushed
+# Menu Bar
+The menu bar at the top offers additional ways to commit the same changes one would with the menu at the bottom, just more options for whatever the user is used to. 
 
 
 

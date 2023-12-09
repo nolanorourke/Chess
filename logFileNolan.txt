@@ -1,0 +1,44 @@
+Log File Nolan O'Rourke
+
+November 18:
+With less than a month to complete this project, we have to work efficiently to get it done. Me and my partner, Nicolas Azzi, met up the first weekend to get a blueprint / plan for how we wanted to tackle certain parts of the project
+
+
+November 21:
+created a github repository to make things today, we got the panels 
+laid out for the project and started to add the iconcs for the chess 
+images
+
+
+November 22:
+started making the pieces class, added the pawn, Nick's idea to make it our tester
+
+November 24:
+Added the grids and game board to use in the game, tought to get it 
+to interact with each other but made it work
+
+November 25:
+very spurratic work, overwhelemed with what to do and cuoldnt find a 
+spot to stay on however all of it ended up beign usefule
+
+December 3rd:
+started creation of makefile
+
+December 5:
+created makefile, started to work on the east panel and the table
+
+December 6: 
+added the last of the images for the pieces, made even more progress 
+with east panel and started to handle bottom panel
+
+December 7:
+Added the move history table and started to work on the buton for the 
+menu, stayed up until 4 am getting detail crazy but the menu buttons 
+are functional, work correctly, and look damn good
+
+December 8: final stretch, the majority of the program was completeed 
+already, just brush up and edge testing before turning it in. Nick 
+did a lot of hard work so he deserves a really excellent grade, im 
+really proud of both of us and this project. Also nick was sick this 
+last week and still working on it so place have some sympath. Where 
+Nick was more on the logic, i was more working the the UI. 

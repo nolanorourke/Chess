@@ -14,6 +14,7 @@ default:
 
 run:
 	find . -type f -name "*.class" -exec rm {} \; && $(JC) $(JFLAGS) Chess.java && $(J) Chess
+	
 jar:
 	$(JR) hwx.jar Manifest.txt *
 
