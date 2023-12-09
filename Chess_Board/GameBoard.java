@@ -123,6 +123,7 @@ public class GameBoard extends JPanel
                             System.out.println("PAWN CHANGE");
                             
                             String temp = showChoices(curSpot);
+                            moveinterp += " = " + temp.charAt(0);
                             if(temp.compareTo("Rook") == 0)
                             {
                                 curSpot.replacePiece(new Rook(curSpot.returnPieceTeam(), curSpot));
