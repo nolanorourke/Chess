@@ -251,6 +251,12 @@ public class GameBoard extends JPanel
                     checkGrid.add(validmoves.elementAt(count + 3));
                 }
             }
+
+            if (Check == true)
+            {
+                checkGrid.add(curSpot.getrowNumber() - 1);
+                checkGrid.add(curSpot.getColumn() - 1);
+            }
         }
     }
 
@@ -345,10 +351,13 @@ public class GameBoard extends JPanel
             {
                 boolean inPath = false, illegalMove = false;
                 for (int count2 = 0; count2 < checkGrid.size(); count2 += 2)
-                    if (checkGrid.elementAt(count2) == moves.elementAt(count) && checkGrid.elementAt(count2 + 1) == moves.elementAt(count + 1))
+                    if ((checkGrid.elementAt(count2) == moves.elementAt(count) && checkGrid.elementAt(count2 + 1) == moves.elementAt(count + 1)
+                        && grid[checkGrid.elementAt(count2)][checkGrid.elementAt(count2 + 1)].getPieceOn() != pieceChecking))
                         inPath = true;
                     else if (!moveAbleSpot(grid[moves.elementAt(count)][moves.elementAt(count + 1)]))
                         illegalMove = true;
+
+                System.out.println(inPath + " " + illegalMove);
                 if (!inPath && !illegalMove)
                         grid[moves.elementAt(count)][moves.elementAt(count + 1)].setBorder(BorderFactory.createLineBorder(new Color(52, 219, 41)));
             }
@@ -375,7 +384,7 @@ public class GameBoard extends JPanel
         for (int row = 0; row < 8; ++row)
             for (int col = 0; col < 8; ++col)
             {
-                if (grid[row][col].hasPieceOn() && grid[row][col].returnPieceTeam() != currentTeamNumber)
+                if (grid[row][col].hasPieceOn() && grid[row][col].getPieceOn() != pieceChecking && grid[row][col].returnPieceTeam() != currentTeamNumber)
                 {
                     prevSpot = grid[row][col];
                     Vector<Integer> moves = possibleMoves();
@@ -405,9 +414,7 @@ public class GameBoard extends JPanel
 
     public int getTurn() { return turn == 1 ? 1 : 2; }
 
-    public String getMoveInterp() {
-        return moveinterp == null ? "" : moveinterp;
-    }
+    public String getMoveInterp() { return moveinterp == null ? "" : moveinterp; }
 
     
     public String showChoices(Spot s) 
