@@ -1,0 +1,52 @@
+Log File from Nicolas Azzi
+
+With less than a month to complete this project, Nolan and I were able to build
+an efficient Chess board game. Underneath is the log of what I did and for what day.
+
+Nov 18.
+    -- Created a basic template of the GUI layout
+    -- Polished GUI layout
+
+Nov 19.
+    -- Worked on GUI layout, started working on dynamically resizing text and frames
+    -- Added two buttons (inital design) completed dynamically resizing them
+
+Nov 21.
+    -- Made a Chess Board Folder and moved related files into it
+    -- Refined pieces of code within GameBoard and Spot file
+    -- Created an initial chess board and move grid on GUI
+    -- Fixed initial bugs we're starting to have
+    -- Add few comments
+
+Nov 22.
+    -- Added MoveGrid file for future use
+    -- Made single line statements (Helps with clunkyness)
+
+Nov 23.
+    -- Started to work on the chess board
+    -- Added pawn image to board
+    -- Inital design of move into grid with pawn
+
+Nov 24.
+    -- Pieces now "move" instead of copied to a grid
+    -- Working on game constraints on pieces starting with pawn
+
+------ Got heavily Sick -------
+
+Dec 5.
+    -- Added most pieces into the gameboard missing knight
+    -- Started working on constraints on most pieces
+    -- Made grids become highlighted when a piece is "selected"
+    -- Added mouse components to Gameboard instead of Spot
+
+Dec 6.
+    -- Added most constraints on pieces where you could "play" a game of chess
+
+Dec 7.
+    -- Worked mostly on constraints trying to get a proper game of chess
+    -- Fixed errors/bugs with certain pieces and did some exception bounds
+
+Dec 8.
+    -- Worked all day on game constraints
+    -- Fixed errors/bugs with all pieces and finished with exception bounds
+    -- Removed prints for debugging to get ready for inital launch
