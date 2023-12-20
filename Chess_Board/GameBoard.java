@@ -12,16 +12,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.JRadioButton;
 import javax.swing.border.LineBorder;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 
 import Chess_Pieces.*;
 
@@ -97,65 +91,41 @@ public class GameBoard extends JPanel
                             Check = false;
                         
                         moveinterp = prevSpot.toString() + middle + curSpot.toString();
-                        // if(curSpot.getPieceOn().getName() == "Pawn")
-                        // {
-                        //     if(curSpot.getPieceOn().getTeamNum() == 1)
-                        //     {
-                        //         if(curSpot.getrow() == 'A')
-                        //         {
-                        //             String temp = showChoices(curSpot);
-                        //             moveinterp += "= " + temp.charAt(0);
-                        //             curSpot.upgrade(temp);
-                                    
-                        //         }
-                        //     }
-                        //     else if(curSpot.getPieceOn().getTeamNum() == 2)
-                        //     {
-                        //         if(curSpot.getrow() == 'G')
-                        //         {
-                        //             String temp = showChoices(curSpot);
-                        //             moveinterp += "= " + temp.charAt(0);
-                        //             curSpot.upgrade(temp);                                }
-                        //     }
-                        // }
                         turn *= -1;
-                        //moveinterp = curSpot.toString() + middle + prevSpot.toString();
 
-                        if (curSpot.getPieceOn().getName() == "Pawn" && ((curSpot.returnPieceTeam() == 1 && curSpot.getrow() == 'A') || curSpot.returnPieceTeam() == -1 && curSpot.getrow() == 'H'))
+                        if (curSpot.getPieceOn().getName() == "Pawn" && ((curSpot.returnPieceTeam() == 1 && curSpot.getrow() == 'A')
+                            || curSpot.returnPieceTeam() == -1 && curSpot.getrow() == 'H'))
                         {
                             // System.outout.println("PAWN CHANGE");
-                            
+
                             String temp = showChoices(curSpot);
                             moveinterp += " = " + temp.charAt(0);
                             if(temp.compareTo("Rook") == 0)
-                            {
                                 curSpot.replacePiece(new Rook(curSpot.returnPieceTeam(), curSpot));
-                            }
                             else if(temp.compareTo("Knight") == 0)
-                            {
                                 curSpot.replacePiece(new Knight(curSpot.returnPieceTeam(), curSpot));
-                            }
                             else if(temp.compareTo("Bishop") == 0)
-                            {
                                 curSpot.replacePiece(new Bishop(curSpot.returnPieceTeam(), curSpot));
-                            }
                             else if(temp.compareTo("Queen") == 0)
-                            {
                                 curSpot.replacePiece(new Queen(curSpot.returnPieceTeam(), curSpot));
-                            }
                             else 
                                 curSpot.replacePiece(new Queen(curSpot.returnPieceTeam(), curSpot));
                         }
 
+                        System.out.println("Testing to see if this works");
                         checkForCheck();
+                        System.out.println(turn);
                         if (Check)
                         {
                             curSpot.getPieceOn().setCheckingPiece(true);
                             pieceChecking = curSpot.getPieceOn();
                             middle = " + ";
-                            Vector<Integer> temp = possibleMoves();
-                            if(temp.size() == 0)
-                                checkmate();
+
+                            // Make a check for mate function here
+                            if(!moveAbleSpot(getKingSpot(turn)))
+                            {
+                                System.out.println("Checkmate");
+                            }
                         }
                     }
                     clearHighlights();
@@ -217,7 +187,8 @@ public class GameBoard extends JPanel
                 validmoves.add(moveSpots.elementAt(count + 1) - 1);
                 Continuous = false;
                 // For when the spot behind it is still in the path of the king
-                if (grid[moveSpots.elementAt(count) - 1][moveSpots.elementAt(count + 1) - 1].getPieceOn().getName() == "King")
+                if (grid[moveSpots.elementAt(count) - 1][moveSpots.elementAt(count + 1) - 1].getPieceOn().getName() == "King"
+                    && (moveSpots.size() < count + 2))
                 {
                     // System.outout.println("Added back king space");
                     validmoves.add(moveSpots.elementAt(count + 2) - 1);
@@ -242,7 +213,6 @@ public class GameBoard extends JPanel
 
         // System.outout.println("CHECKING FOR CHECK...");
         // System.outout.println(validmoves.size()/2);
-
         for (int count = 0; count < validmoves.size() && Check == false; count += 2)
         {
             if (curSpot.getPieceOn().nextToPiece(grid[validmoves.elementAt(count)][validmoves.elementAt(count + 1)]))
@@ -389,21 +359,23 @@ public class GameBoard extends JPanel
     {
         Spot temp = prevSpot;
         int currentTeamNumber = prevSpot.returnPieceTeam();
+        System.out.println("In moveAble 1");
         for (int row = 0; row < 8; ++row)
             for (int col = 0; col < 8; ++col)
             {
+                System.out.println("In moveAble 2");
                 if (grid[row][col].hasPieceOn() && grid[row][col].getPieceOn() != pieceChecking && grid[row][col].returnPieceTeam() != currentTeamNumber)
                 {
+                    System.out.println("In moveAble 3");
                     prevSpot = grid[row][col];
                     Vector<Integer> moves = possibleMoves();
                     for (int count = 0; count < moves.size(); count+=2)
                     {
+                        System.out.println("In moveAble 4");
                         if (movingInto.getrowNumber() - 1 == moves.elementAt(count) && movingInto.getColumn() - 1 == moves.elementAt(count + 1))
                         {
                             prevSpot = temp;
-                            // System.outout.println("MOVEABLESPOT IS FALSE");
-                            if(temp.getName() == "King");
-                                checkmate();
+                            // System.out.println("MOVEABLESPOT IS FALSE");
                             return false;
                         }
                     }
@@ -442,6 +414,7 @@ public class GameBoard extends JPanel
         return selected.toString();
     }
 
+    // Use this framework already to do checkForMate
     public void checkmate()
     {
         JFrame frame = new JFrame();
@@ -449,8 +422,19 @@ public class GameBoard extends JPanel
         JOptionPane.showMessageDialog(frame, "Checkmate!");
     }
 
-    public boolean getCheckMate() {return checkmate;}
-    public boolean getStaleMate() {return stalemate;}
+    public boolean getCheckMate() { return checkmate; }
+    public boolean getStaleMate() { return stalemate; }
 
+    public Spot getKingSpot(int teamNum)
+    {
+        for (int row = 0; row < 8; ++row)
+            for (Spot thisSpot : grid[row])
+                if (thisSpot.hasPieceOn() && thisSpot.getPieceOn().getTeamNum() == teamNum && thisSpot.getPieceOn().getName() == "King")
+                    return thisSpot;
 
+        // This will never happen
+        return new Spot();
+    }
+
+    // need to make seperate function to check for checkmate
 }

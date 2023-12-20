@@ -70,11 +70,11 @@ public class Spot extends JPanel
                 pieceOn = new Knight(this);
             else if (column == 3 || column == 6)
                 pieceOn = new Bishop(this);
-            else if (column == 5 && row == 'A')
-                pieceOn = new Queen(this);
-            else if (column == 5 && row == 'H')
-                pieceOn = new Queen(this);
             else if (column == 4 && row == 'A')
+                pieceOn = new Queen(this);
+            else if (column == 4 && row == 'H')
+                pieceOn = new Queen(this);
+            else if (column == 5 && row == 'A')
                 pieceOn = new King(this);
             else
                 pieceOn = new King(this);
