@@ -122,10 +122,14 @@ public class GameBoard extends JPanel
                             middle = " + ";
 
                             // Make a check for mate function here
+                            checkForMate(turn);
+
+                            /*
                             if(!moveAbleSpot(getKingSpot(turn)))
                             {
                                 System.out.println("Checkmate");
                             }
+                            */
                         }
                     }
                     clearHighlights();
@@ -306,7 +310,7 @@ public class GameBoard extends JPanel
 
 
 
-
+    // Redo this function for checkmate
     public void highlightMoveableSpots(Vector<Integer> moves)
     {
         // Current spot
@@ -415,11 +419,27 @@ public class GameBoard extends JPanel
     }
 
     // Use this framework already to do checkForMate
-    public void checkmate()
+    public void checkForMate(int teamNum)
     {
-        JFrame frame = new JFrame();
-        frame.setAlwaysOnTop(true);
-        JOptionPane.showMessageDialog(frame, "Checkmate!");
+        System.out.println("Checking for mate");
+        int validMoves = 0;
+        for (int row = 0; row < 8; ++row)
+            for (Spot thisSpot : grid[row])
+                if (thisSpot.hasPieceOn() && thisSpot.getPieceOn().getTeamNum() == teamNum)
+                {
+                    Spot temp = prevSpot;
+                    prevSpot = thisSpot;
+                    validMoves += possibleMoves().size();
+                    System.out.println(validMoves);
+                    prevSpot = temp;
+                }
+
+        if (validMoves == 0)
+        {
+            JFrame frame = new JFrame();
+            frame.setAlwaysOnTop(true);
+            JOptionPane.showMessageDialog(frame, "Checkmate!");
+        }
     }
 
     public boolean getCheckMate() { return checkmate; }
@@ -435,6 +455,7 @@ public class GameBoard extends JPanel
         // This will never happen
         return new Spot();
     }
+
 
     // need to make seperate function to check for checkmate
 }
